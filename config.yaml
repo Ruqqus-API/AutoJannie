@@ -1,0 +1,41 @@
+# Link Whitelist
+
+type: link submission
+author:
+    is_contributor: false
+    is_guildmaster: false
+~domain: [reddit.com]
+action: kick
+comment: |
+    Your submission was kicked because it includes a link to reddit.com. To see this guilds blacklist of links, visit...
+
+---
+
+# Autonotify posts and comments which have 5 or more reports
+
+reports: 10
+action: notify
+gm_notification: The above {{kind}} by @{{author}} was removed because it received 10 reports. Friendly notification, take action if you wish.
+
+---
+
+# Autoremove posts with the title: "a boring title"
+
+type: submission
+title: a boring title
+action: kick
+comment: |
+    Your post was removed because you titled it "A boring title". Please come up with a better name and try again.
+
+---
+
+# Autoremove posts and comments where the author's account is less than 10 days old or they have less than 30 comment reputation
+
+author:
+    comment_rep: "< 30"
+    account_age: "< 10 days"
+    satisfy_any_threshold: true
+action: remove
+message_subject: Your recent {{kind}} in +aesthetic was removed
+message: |
+    To protect the guild from spam, your {{kind}} was removed because you don't meet the comment rep threshold or your account was recently made. Please read our [anti-spam policy](https://www.ruqqus.com/+aesthetic/post/asdf) to understand why this happened.
