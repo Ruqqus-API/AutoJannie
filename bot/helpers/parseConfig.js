@@ -27,7 +27,7 @@ module.exports = {
 
 		const config = {
 			name: post.guild.name,
-			guildmasters: post.guild.guildmasters,
+			guildmasters: guildmasters,
 			rules: rules
 		}
 
@@ -42,7 +42,7 @@ module.exports = {
 					data: {
 						data: {
 							name: post.guild.name,
-							guildmasters: post.guild.guildmasters,
+							guildmasters: guildmasters,
 							rules: rules
 						}
 					}
@@ -69,7 +69,7 @@ module.exports = {
 				)
 			)
 		)
-			.then(res => {
+			.then(() => {
 				post.comment(`Config successfully saved to the database! Automoderator is now active`)
 			})
 			.catch(err => {
