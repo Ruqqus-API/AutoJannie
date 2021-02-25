@@ -1,4 +1,9 @@
-/node_modules
+*/node_modules
 PROBLEMS.md
 bot/.env
 config.yaml
+bot/config.json
+bot/node_modules/.package-lock.json
+bot/package-lock.json
+bot/node_modules/.package-lock.json
+bot/package-lock.json
