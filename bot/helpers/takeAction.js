@@ -1,5 +1,7 @@
 module.exports = {
-	execute(){
+	execute(passOn, submission, config) {
+		const { client, faunaClient, redisClient } = passOn
 		
+
 	}
 }

@@ -7,3 +7,4 @@ bot/node_modules/.package-lock.json
 bot/package-lock.json
 bot/node_modules/.package-lock.json
 bot/package-lock.json
+bot/redis-volume/dump.rdb

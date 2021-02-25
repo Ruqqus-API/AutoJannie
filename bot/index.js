@@ -1,14 +1,22 @@
-const Ruqqus = require("ruqqus-js")
 require('dotenv').config()
+const Ruqqus = require("ruqqus-js")
 const client = new Ruqqus.Client({
 	agent: process.env.AGENT
 })
 
+const redis = require('redis')
+let redisClient = redis.createClient({
+	host: 'redis'
+})
+
+
 var faunadb = require('faunadb')
 var faunaClient = new faunadb.Client({ secret: process.env.FAUNA_SECRET })
 
-client.on("post", post => require('./helpers/handlers/postHandler').execute(client, faunaClient, post))
-client.on("comment", comment => require('./helpers/handlers/commentHandler').execute(client, faunaClient, comment))
+const passOn = { client, faunaClient, redisClient }
+
+client.on("post", post => require('./helpers/handlers/postHandler').execute(passOn, post))
+client.on("comment", comment => require('./helpers/handlers/commentHandler').execute(passOn, comment))
 
 client.on("login", () => {
 	console.log(`Logged in as ${client.user.username}!`)

@@ -4,13 +4,15 @@ var faunadb = require('faunadb');
 const { Create, Collection, If, Let, Exists, Update, Match, Index, Var, Select } = faunadb.query
 
 module.exports = {
-	async execute(client, faunaClient, post) {
+	async execute(passOn, post) {
+
+		const { client, faunaClient, redisClient } = passOn
 
 		const guild = await client.guilds.fetch(post.guild.name)
 
 		const guildmasters = guild.guildmasters
 
-		if (!guildmasters.some(gm => gm.username === post.author.name)) {
+		if (!guildmasters.some(gm => gm.username === post.author.username)) {
 			post.comment(`You are not the guildmaster of +${guild.name}, you can't set up an Automod for this guild!`)
 			return
 		}
@@ -22,6 +24,15 @@ module.exports = {
 			postText = postText.slice(3, -3)
 		}
 		const rules = yaml.loadAll(postText);
+
+		const config = {
+			name: post.guild.name,
+			guildmasters: post.guild.guildmasters,
+			rules: rules
+		}
+
+		redisClient.set(`${post.guild.name}_config`, JSON.stringify(config))
+		redisClient.set(`${post.guild.name}_config_exists`, 'true')
 
 		faunaClient.query(
 
