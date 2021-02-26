@@ -6,7 +6,7 @@ import store from "./store/index.js"
 import vuescroll from "../node_modules/vuescroll"
 
 // import FontAwesome
-// import "./assets/fontawesome/css/all.css";
+import "./assets/fontawesome/css/all.css";
 
 import "vuescroll/dist/vuescroll.css";
 
