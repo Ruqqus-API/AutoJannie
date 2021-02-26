@@ -9,7 +9,9 @@ import qs from 'qs';
 import DashboardView from "@/views/Dashboard.vue"
 
 // Guild
-import GuildModerationView from "@/views/Guild/Moderation.vue";
+import GuildView from "@/views/Guild/Guild.vue"
+import GuildOverviewView from "@/views/Guild/Overview.vue";
+import GuildRulesView from "@/views/Guild/Rules.vue";
 import GuildSettingsView from "@/views/Guild/Settings.vue";
 
 // User
@@ -22,16 +24,19 @@ const routes = [
   { path: '/', name: 'home-view', component: DashboardView, props: true },
 
   // Guild View
-  { path: '/+:guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildModerationView },
-  { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
+  // { path: '/+:guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildModerationView },
+  // { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
 
-  // {
-  //   path: '/+:guild', component: GuildView, props: true,
-  //   children: [
-  //   { path: '/+guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildSettings,
-  //   //{ path: '/+:guild/settings', component: GuildSettingsView, name: 'guild-settings-view', props: true,
-  //   ]
-  // }
+  {
+    path: '/+:guild', component: GuildView, props: true,
+    children: [
+    { path: '', name: 'guild-overview-view', component: GuildOverviewView },
+    { path: '/+:guild/overview', name: 'guild-overview-view', component: GuildOverviewView },
+    { path: '/+:guild/rules', name: 'guild-rules-view', component: GuildRulesView },
+    { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
+    //{ path: '/+:guild/settings', component: GuildSettingsView, name: 'guild-settings-view', props: true,
+    ]
+  }
 
   ]
 
