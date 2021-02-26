@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import qs from 'qs';
-import store from "@/store";
+//import store from "@/store";
 
 // Components
 
