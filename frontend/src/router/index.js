@@ -22,7 +22,7 @@ const routes = [
   { path: '/', name: 'home-view', component: DashboardView, props: true,
 
   // Guild View
-  { path: '/+:guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildModerationView }
+  { path: '/+:guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildModerationView },
   { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
 
   // {
