@@ -19,7 +19,7 @@ Vue.use(VueRouter)
 const routes = [
 
   // Home View
-  { path: '/', name: 'home-view', component: DashboardView, props: true,
+  { path: '/', name: 'home-view', component: DashboardView, props: true },
 
   // Guild View
   { path: '/+:guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildModerationView },
