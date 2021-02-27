@@ -10,8 +10,12 @@ Make `.env` file and fill it with following variables:
 `NODE_ENV` - set to "production" when in production  
 `FAUNA_SECRET` - your faunadb "server" secret  
 
-## Run
-`docker-compose up`
+## Run  
+```
+docker-compose up
+```  
 
 If you made changes to the code and want to restart it, run:  
-`docker-compose restart bot`
+```  
+docker-compose restart bot
+```
