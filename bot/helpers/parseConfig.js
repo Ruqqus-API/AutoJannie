@@ -1,7 +1,7 @@
 const yaml = require('js-yaml');
 
 var faunadb = require('faunadb');
-const { Create, Collection, If, Let, Exists, Update, Match, Index, Var, Select } = faunadb.query
+const { Create, Collection, If, Let, Exists, Update, Match, Index, Var, Select, Get } = faunadb.query
 
 module.exports = {
 	async execute(passOn, post) {
@@ -17,7 +17,6 @@ module.exports = {
 			return
 		}
 
-
 		var postText = post.content.body.text
 
 		if (postText.startsWith("```") && postText.endsWith("```")) {
@@ -27,7 +26,10 @@ module.exports = {
 
 		const config = {
 			name: post.guild.name,
+			config_post_id: post.id,
 			guildmasters: guildmasters,
+			guild: guild,
+			rules_yaml: postText,
 			rules: rules
 		}
 
@@ -40,11 +42,7 @@ module.exports = {
 				{
 					match: Match(Index('guild_by_name'), post.guild.name),
 					data: {
-						data: {
-							name: post.guild.name,
-							guildmasters: guildmasters,
-							rules: rules
-						}
+						data: config
 					}
 				},
 
@@ -55,10 +53,8 @@ module.exports = {
 					),
 
 					// If it does, update it
-					Update(
-						Select('ref', Var('match')),
-						Var('data')
-					),
+					Update(Select('ref', Get(Var('match'))), Var('data')),
+
 
 					// If not, add it to the db
 					Create(

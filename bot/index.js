@@ -9,7 +9,6 @@ let redisClient = redis.createClient({
 	host: 'redis'
 })
 
-
 var faunadb = require('faunadb')
 var faunaClient = new faunadb.Client({ secret: process.env.FAUNA_SECRET })
 
