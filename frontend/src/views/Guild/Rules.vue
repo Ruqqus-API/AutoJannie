@@ -3,7 +3,7 @@
 
     <!-- Header content section -->
     <div class="flex flex-shrink-0 w-full items-center h-16 px-4 bg-white border-b border-gray-300 dark:border-white dark:border-opacity-10 dark:bg-gray-700">
-      <h1 class="text-2xl mb-0">Settings</h1>
+      <h1 class="text-2xl mb-0">Rules</h1>
     </div>
 
     <!-- Main content section -->
@@ -17,7 +17,7 @@
 <script>
 
 export default {
-  name: "GuildSettings",
+  name: "GuildRules",
   components: {
   },
   data() {
