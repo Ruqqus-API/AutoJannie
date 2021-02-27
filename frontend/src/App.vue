@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="text-base bg-white dark:bg-gray-900">
     <!-- Top navigation across the app -->
     <Navbar/>
     <!-- Sidebar and main content -->
@@ -23,6 +23,3 @@
     }
   }
 </script>
-
-<style>
-</style>
