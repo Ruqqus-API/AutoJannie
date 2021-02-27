@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "faunadb": "^4.1.1",
     "qs": "^6.9.6",
     "vue": "^2.6.11",
     "vue-router": "^3.5.1",
