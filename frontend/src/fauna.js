@@ -1,6 +1,7 @@
-import faunadb, { Get, Match, Index, Map, Paginate, Lambda, Var, Let, If, Exists, Update, Select, Create, Collection } from 'faunadb'
+const faunadb = require('faunadb')
+const { Get, Match, Index, Map, Paginate, Lambda, Var, Let, If, Exists, Update, Select, Create, Collection } = require('faunadb')
 
-const client = new faunadb.Client({ secret: process.env.FAUNA_SECRET })
+const client = new faunadb.Client({ secret: "fnAECxesB8ACBY3E8bmCIfpBYikntW5IwxRPPNPk" })
 
 const getGuildById = (guild_id) => client.query(Get(Match(Index("guild_by_id"), guild_id)))
 const getGuildByName = (guild_name) => client.query(Get(Match(Index("guild_by_name"), guild_name)))
@@ -30,22 +31,14 @@ function saveConfig(guild_name, config) {
 			}
 		},
 
-		If(
-			// Check if the config for the guild already exists in the db
-			Exists(
-				Var('match')
-			),
+		If(	// Check if the config for the guild already exists in the db
+			Exists(Var('match')),
 
 			// If it does, update it
 			Update(Select('ref', Get(Var('match'))), Var('data')),
 
-
 			// If not, add it to the db
-			Create(
-				Collection('guilds'),
-				Var('data')
-
-			)
+			Create(Collection('guilds'),Var('data'))
 		)
 	))
 		.then(res => {
@@ -53,14 +46,12 @@ function saveConfig(guild_name, config) {
 				message: `Config successfully saved to the database! Automoderator is now active`,
 				res
 			}
-
 		})
 		.catch(err => {
 			return {
 				message: `Something went wrong, config failed to save!`,
 				err
 			}
-
 		})
 }
 
