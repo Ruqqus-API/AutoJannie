@@ -14,6 +14,9 @@
               <a :href="href" @click="navigate" class="group">
                 <div class="border-b-2 px-3 pb-2 capitalize font-medium" :class="isExactActive ? 'text-gray-900 border-purple-500' : 'text-gray-500 hover:text-gray-700 border-transparent'">
                   {{ tab.name }}
+                  <span v-if="tab.badge" class="ml-1 px-2 py-0.5 rounded-full bg-white border text-sm text-gray-500 font-normal">
+                    {{ tab.badge.count }}
+                  </span>
                 </div>
               </a>
             </router-link>
@@ -89,14 +92,20 @@ export default {
         name: "active",
         route: {
           name: 'guild-rules-view',
-          params: { sort: 'active' }
+          params: { sort: 'active' },
+        },
+        badge: {
+          count: 10
         }
       },
       {
         name: "inactive",
         route: {
           name: 'guild-rules-view',
-          params: { sort: 'inactive' }
+          params: { sort: 'inactive' },
+          badge: {
+            count: 1
+          }
         }
       },
       {

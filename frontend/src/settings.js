@@ -87,6 +87,7 @@ const settings = {
 				success: 'text-white bg-green-500 border border-transparent hover:bg-green-600',
 				white: 'text-gray-700 bg-white border border-transparent hover:bg-gray-100',
 				gray100: 'text-gray-600 bg-gray-100 border border-transparent hover:bg-gray-200',
+				gray300: 'text-gray-600 bg-gray-300 border border-transparent hover:bg-gray-400',
 				gray400: 'text-white bg-gray-400 border border-transparent hover:bg-gray-500',
 				gray500: 'text-white bg-gray-500 border border-transparent hover:bg-gray-600',
 				gray600: 'text-white bg-gray-600 border border-transparent hover:bg-gray-700',

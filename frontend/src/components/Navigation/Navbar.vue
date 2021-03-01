@@ -1,7 +1,7 @@
   <template>
-    <nav class="fixed w-full bg-white shadow-sm dark:bg-gray-800 dark:shadow z-10">
+    <nav class="fixed w-full bg-white shadow-sm dark:bg-gray-800 dark:shadow z-50">
         <div class="mx-auto px-4">
-            <div class="flex items-center justify-between h-14">
+            <div class="flex items-center justify-between h-12">
                 <div class="flex flex-grow items-center">
                     <div class="flex-shrink-0">
                         <router-link to="/" class="font-bold text-xl text-purple-500 tracking-wide">wizardgm</router-link>
@@ -10,14 +10,19 @@
                 <div class="hidden md:block">
                     <div class="ml-4 flex items-center space-x-2 md:ml-6">
 
-                        <router-link to="/moderation" tag="button" class="flex items-center justify-center px-2 h-9 text-sm font-bold text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <router-link to="/moderation" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
                             <span class="sr-only">View guilds</span>
-                            Moderation
+                            <i class="fas fa-bell"></i>
                         </router-link>
 
-                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 h-9 text-sm font-bold text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
                             <span class="sr-only">View account settings</span>
-                            My Account
+                            <i class="fas fa-crown"></i>
+                        </router-link>
+
+                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
+                            <span class="sr-only">View tips</span>
+                            <i class="fas fa-question-circle"></i>
                         </router-link>
 
                         <!-- Profile dropdown -->
@@ -39,7 +44,7 @@
                     >
                     <button
                     id="user-menu"
-                    class="flex items-center p-1 text-sm text-gray-900 font-bold bg-white rounded-sm hover:bg-gray-100 focus:outline-none focus:shadow-solid focus:outline-none focus:shadow-solid"
+                    class="flex items-center text-sm text-gray-900 font-bold bg-white rounded hover:bg-gray-100 focus:outline-none focus:shadow-solid focus:outline-none focus:shadow-solid"
                     :class="{ 'bg-gray-100': isShown }"
                     aria-label="User menu"
                     aria-haspopup="true"
@@ -48,11 +53,11 @@
                     @blur="blurHandler"
                     @keydown="keydownHandler"
                     >
-                    <img class="w-9 h-9 object-cover rounded-sm mr-2" src="https://i.ibb.co/BGq4NpT/Mydiscordpfp-105597.jpg" alt="user avatar"/>
+                    <img class="w-9 h-9 object-cover rounded mr-2" src="https://i.ibb.co/BGq4NpT/Mydiscordpfp-105597.jpg" alt="user avatar"/>
                     <div class="text-left">
                         username
                     </div>
-                    <i class="fas fa-chevron-down fa-sm text-gray-700 ml-8 mr-2"></i>
+                    <i class="fas fa-chevron-down fa-sm text-gray-700 ml-8 mr-3"></i>
                 </button>
             </div>
             <!-- Menu -->
