@@ -1,5 +1,5 @@
 <template>
-	<div class="flex h-screen pt-14">
+	<div class="flex h-screen pt-12">
 		<Sidebar :menu="menu" sidebar-color="primary" sticky-header>
 			<template v-slot:header>
 				<div class="flex flex-shrink-0 w-full items-center h-24 md:px-6 border-b dark:border-white dark:border-opacity-10 dark:bg-gray-700">

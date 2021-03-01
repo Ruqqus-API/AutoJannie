@@ -1,5 +1,5 @@
   <template>
-    <nav class="fixed w-full bg-white shadow-sm dark:bg-gray-800 dark:shadow z-50">
+    <nav class="fixed w-full bg-white border-b-2 dark:bg-gray-800 z-50">
         <div class="mx-auto px-4">
             <div class="flex items-center justify-between h-12">
                 <div class="flex flex-grow items-center">
@@ -67,7 +67,7 @@
       <i class="fas fa-columns text-center fa-fw mr-2"></i><span>Dashboard</span>
   </router-link> -->
   <router-link to="/+minecraft" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
-    <i class="fas fa-crown text-center fa-fw mr-2"></i><span>Moderation</span>
+    <i class="fas fa-rook text-center fa-fw mr-2"></i><span>Moderated Guilds</span>
 </router-link>
 <router-link to="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
     <i class="fas fa-cog text-center fa-fw mr-2"></i><span>My Account</span>

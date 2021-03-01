@@ -1,5 +1,5 @@
 <template>
-	<div class="hidden md:flex items-center flex-col flex-shrink-0 w-64 bg-gray-50 dark:bg-gray-750 dark:border-white-13">
+	<div class="hidden md:flex items-center flex-col flex-shrink-0 w-64 bg-gray-50 border-r dark:bg-gray-750 dark:border-white-13">
 
 		<slot name="header" v-if="stickyHeader"/>
 
@@ -23,7 +23,7 @@
 						</div>
 						<div v-if="!item.header">
 							<router-link v-slot="{ href, navigate, isActive }" :to="item.route">
-								<a :href="href" @click="navigate" class="block px-4 py-2 text-left transition duration-100" :class="isActive ? 'text-gray-600 text-opacity-100 bg-gray-200' : 'text-gray-500'">
+								<a :href="href" @click="navigate" class="block px-6 py-2 text-left transition duration-100" :class="isActive ? 'text-white bg-purple-500' : 'text-gray-500 hover:bg-gray-200'">
 									<span v-if="!item.icon">
 										<img
 										:id="item.id"

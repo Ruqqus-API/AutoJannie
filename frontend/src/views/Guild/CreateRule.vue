@@ -21,7 +21,7 @@
 									1. Trigger
 								</div>
 							</div>
-							<div class="p-3 bg-white border border-t-0 rounded-b">
+							<div class="space-y-2 p-3 bg-white border border-t-0 rounded-b">
 								<div class="flex items-center space-x-2">
 									<div class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 shadow-inner font-bold rounded text-gray-500 hover:text-gray-800">
 										<i class="fas fa-link fa-fw fa-sm"></i>
@@ -172,4 +172,24 @@ export default {
 	background: #e3e3e3;
 }
 
+.separator {
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.separator::before,
+.separator::after {
+	content: '';
+	flex: 1;
+	border-bottom: 1px solid #e3e3e3;
+}
+
+.separator:not(:empty)::before {
+	margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+	margin-left: .25em;
+}
 </style>
