@@ -22,65 +22,64 @@
 							</div>
 						</div>
 						<div v-if="!item.header">
-							<router-link
-							:to="item.route"
-							class="block px-4 py-2 text-left text-gray-500 text-opacity-80 hover:text-opacity-90 hover:bg-gray-100 transition duration-100 rounded"
-							active-class="text-gray-600 text-opacity-100 bg-gray-200">
-							<span v-if="!item.icon">
-								<img
-								:id="item.id"
-								v-lazy="item.src"
-								class="w-12 h-12 object-fit bg-gray-300 dark:bg-gray-700 rouned-sm"
-								:alt="item.alt"
-								/>
-								<span class="pl-3">+{{ item.name }}</span>
-							</span>
-							<span v-else>
-								<i class="fas mr-3 fa-sm fa-fw" :class="item.icon"></i>
-								<span class="font-medium" :class="item.textCase">{{ item.name }}</span>
-							</span>
-						</router-link>
-					</div>
-				</li>
-			</ul>
-		</div>
+							<router-link v-slot="{ href, navigate, isActive }" :to="item.route">
+								<a :href="href" @click="navigate" class="block px-4 py-2 text-left transition duration-100" :class="isActive ? 'text-gray-600 text-opacity-100 bg-gray-200' : 'text-gray-500'">
+									<span v-if="!item.icon">
+										<img
+										:id="item.id"
+										v-lazy="item.src"
+										class="w-12 h-12 object-fit bg-gray-300 dark:bg-gray-700 rouned-sm"
+										:alt="item.alt"
+										/>
+										<span class="pl-3">+{{ item.name }}</span>
+									</span>
+									<span v-else>
+										<i class="fas mr-3 fa-sm fa-fw" :class="item.icon"></i>
+										<span class="font-medium" :class="item.textCase">{{ item.name }}</span>
+									</span>
+								</a>
+							</router-link>
+						</div>
+					</li>
+				</ul>
+			</div>
 
-		<div class="p-3">
-			<slot name="footer"/>
-		</div>
+			<div class="p-3">
+				<slot name="footer"/>
+			</div>
 
-	</vue-scroll>
-</div>
+		</vue-scroll>
+	</div>
 </template>
 
 <script>
 // import components
 
 export default {
-  props: {
-    menu: {
-      type: Array,
-      required: true,
-      default: () => [{ textCase: 'lowercase' }]
-    },
-    sidebarColor: {
-      type: String,
-      default: 'white'
-    },
-    stickyHeader: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-    drag: false,
+	props: {
+		menu: {
+			type: Array,
+			required: true,
+			default: () => [{ textCase: 'lowercase' }]
+		},
+		sidebarColor: {
+			type: String,
+			default: 'white'
+		},
+		stickyHeader: {
+			type: Boolean,
+			default: false
+		}
+	},
+	data() {
+		return {
+			drag: false,
     hideBar: { // Vue-Scroll bar
-      bar: {
-        opacity: 0
-      }
+    	bar: {
+    		opacity: 0
+    	}
     }
-  };
+};
 }
 };
 </script>
