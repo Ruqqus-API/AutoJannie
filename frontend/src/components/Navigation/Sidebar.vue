@@ -74,11 +74,11 @@ export default {
 	data() {
 		return {
 			drag: false,
-    hideBar: { // Vue-Scroll bar
-    	bar: {
-    		opacity: 0
-    	}
-    }
+	hideBar: { // Vue-Scroll bar
+		bar: {
+			opacity: 0
+		}
+	}
 };
 }
 };
