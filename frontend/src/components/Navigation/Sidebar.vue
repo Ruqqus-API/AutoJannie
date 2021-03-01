@@ -1,5 +1,5 @@
 <template>
-	<div class="hidden md:flex items-center flex-col flex-shrink-0 w-64 dark:bg-gray-750 dark:border-white-13" :class="`bg-${sidebarColor}`">
+	<div class="hidden md:flex items-center flex-col flex-shrink-0 w-64 bg-gray-50 dark:bg-gray-750 dark:border-white-13">
 
 		<slot name="header" v-if="stickyHeader"/>
 
@@ -8,24 +8,24 @@
 
 			<slot name="header" v-if="!stickyHeader"/>
 
-			<div class="p-2">
+			<div class="py-4">
 				<ul v-for="(section, index) in menu" :key="index" class="-mt-2 mb-5 list-unstyled border-gray-200 dark:border-white-13" :class="{'pb-2 border-b':section.divider}">
 					<li v-if="section.header" slot="header" class="py-1 sticky top-0 dark:bg-gray-750 dark:border-white-13" :class="'bg-'+sidebarColor">
-						<div class="px-4 text-xs tracking-wide font-bold uppercase text-white text-opacity-80 dark:text-opacity-60">
+						<div class="px-4 text-xs tracking-wide font-bold uppercase text-gray-500 text-opacity-80 dark:text-opacity-60">
 							{{ section.name }}
 						</div>
 					</li>
 					<li v-for="(item, index) in section.items" :key="index" class="item">
 						<div v-if="item.header" class="mt-4 mb-2">
-							<div class="text-xs tracking-wide font-bold uppercase text-gray-300 dark:text-gray-400">
+							<div class="px-6 text-xs uppercase text-gray-500 font-bold tracking-wide mb-3">
 								{{ item.name }}
 							</div>
 						</div>
 						<div v-if="!item.header">
 							<router-link
 							:to="item.route"
-							class="block px-4 py-2 text-left text-white text-opacity-80 hover:text-opacity-90 hover:bg-white hover:bg-opacity-10 transition duration-100 rounded-sm"
-							active-class="text-white text-opacity-100 bg-white bg-opacity-20">
+							class="block px-4 py-2 text-left text-gray-500 text-opacity-80 hover:text-opacity-90 hover:bg-gray-100 transition duration-100 rounded"
+							active-class="text-gray-600 text-opacity-100 bg-gray-200">
 							<span v-if="!item.icon">
 								<img
 								:id="item.id"
@@ -36,8 +36,8 @@
 								<span class="pl-3">+{{ item.name }}</span>
 							</span>
 							<span v-else>
-								<i class="fas mr-3 fa-fw text-center" :class="item.icon"></i>
-								<span class="font-bold" :class="item.textCase">{{ item.name }}</span>
+								<i class="fas mr-3 fa-sm fa-fw" :class="item.icon"></i>
+								<span class="font-medium" :class="item.textCase">{{ item.name }}</span>
 							</span>
 						</router-link>
 					</div>

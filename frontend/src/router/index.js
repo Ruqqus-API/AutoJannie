@@ -32,8 +32,12 @@ const routes = [
     children: [
     { path: '', name: 'guild-overview-view', component: GuildOverviewView },
     { path: '/+:guild/overview', name: 'guild-overview-view', component: GuildOverviewView },
-    { path: '/+:guild/rules', name: 'guild-rules-view', component: GuildRulesView },
-    { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
+    { path: '/+:guild/rules', name: 'guild-rules-view', component: GuildRulesView,
+    children: [
+    { path: '/+guild/rules/:sort?', name: 'guild-rules-view', component: GuildRulesView }
+    ]
+  },
+  { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
     //{ path: '/+:guild/settings', component: GuildSettingsView, name: 'guild-settings-view', props: true,
     ]
   }
