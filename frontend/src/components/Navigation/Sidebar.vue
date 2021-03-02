@@ -1,5 +1,5 @@
 <template>
-	<div class="hidden md:flex items-center flex-col flex-shrink-0 w-64 bg-gray-50 border-r dark:bg-gray-750 dark:border-white-13">
+	<div class="hidden md:flex items-center flex-col flex-shrink-0 w-72 bg-white border-r dark:bg-gray-750 dark:border-white-13">
 
 		<slot name="header" v-if="stickyHeader"/>
 
@@ -8,8 +8,8 @@
 
 			<slot name="header" v-if="!stickyHeader"/>
 
-			<div class="py-4">
-				<ul v-for="(section, index) in menu" :key="index" class="-mt-2 mb-5 list-unstyled border-gray-200 dark:border-white-13" :class="{'pb-2 border-b':section.divider}">
+			<div class="py-3">
+				<ul v-for="(section, index) in menu" :key="index" class="mb-5 list-unstyled border-gray-200 dark:border-white-13" :class="{'pb-2 border-b':section.divider}">
 					<li v-if="section.header" slot="header" class="py-1 sticky top-0 dark:bg-gray-750 dark:border-white-13" :class="'bg-'+sidebarColor">
 						<div class="px-4 text-xs tracking-wide font-bold uppercase text-gray-500 text-opacity-80 dark:text-opacity-60">
 							{{ section.name }}
@@ -23,8 +23,8 @@
 						</div>
 						<div v-if="!item.header">
 							<router-link v-slot="{ href, navigate, isActive }" :to="item.route">
-								<a :href="href" @click="navigate" class="block px-6 py-2 text-left transition duration-100" :class="isActive ? 'text-white bg-purple-500' : 'text-gray-500 hover:bg-gray-200'">
-									<span v-if="!item.icon">
+								<a :href="href" @click="navigate" class="block px-6 py-2 text-left transition duration-100" :class="isActive ? 'text-white bg-purple-500' : 'text-gray-500 hover:bg-gray-100'">
+									<span v-if="!item.icon" class="flex items-center">
 										<img
 										:id="item.id"
 										v-lazy="item.src"
@@ -33,9 +33,9 @@
 										/>
 										<span class="pl-3">+{{ item.name }}</span>
 									</span>
-									<span v-else>
-										<i class="fas mr-3 fa-sm fa-fw" :class="item.icon"></i>
-										<span class="font-medium" :class="item.textCase">{{ item.name }}</span>
+									<span v-else class="flex items-center">
+										<i class="fas fa-fw text-2xs mr-3" :class="item.icon"></i>
+										<span class="font-semibold" :class="item.textCase">{{ item.name }}</span>
 									</span>
 								</a>
 							</router-link>
