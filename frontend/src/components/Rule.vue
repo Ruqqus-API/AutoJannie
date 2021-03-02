@@ -1,5 +1,5 @@
 <template>
-	<router-link to="/" class="block bg-white border border-gray-300 rounded px-4 py-3 hover:bg-gray-50 focus:bg-gray-50">
+	<router-link to="/" class="block bg-white border rounded px-4 py-3 hover:border-gray-300">
 		<div class="flex flex-grow items-center justify-between">
 			<div class="flex items-center space-x-1">
 				<div class="flex items-center text-sm bg-gray-100 shadow-inner rounded-sm text-gray-500 hover:text-gray-800">
@@ -29,7 +29,7 @@
 					</div>
 					<!-- Menu -->
 					<div slot-scope="{ hide, blurHandler }">
-						<router-link to="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
+						<router-link :to="`/+${$route.params.guild}/rules/edit`" class="block px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
 							<i class="fas fa-pen fa-sm fa-fw mr-2"></i><span>Edit rule</span>
 						</router-link>
 						<router-link to="#" class="block px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="blurHandler">

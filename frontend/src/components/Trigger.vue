@@ -15,8 +15,8 @@
 			<div class="border-t-0 border rounded-b" v-show="active">
 
 				<div class="p-5">
-					<label class="label">Select a trigger</label>
-					<t-rich-select/>
+					<label class="label">Trigger</label>
+					<t-rich-select placeholder="Select a trigger..."/>
 				</div>
 
 				<div class="space-y-3 hidden">
@@ -31,7 +31,10 @@
 					</button>
 				</div>
 				<div class="mt-5 flex justify-end p-5 border-t">
-					<t-button variant="purple500">Next step</t-button>
+					<t-button variant="purple500">
+						Next step
+						<i class="fas fa-arrow-right fa-sm pl-2"></i>
+					</t-button>
 				</div>
 			</div>
 		</div>

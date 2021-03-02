@@ -14,7 +14,7 @@ import GuildOverviewView from "@/views/Guild/Overview.vue";
 import GuildRulesView from "@/views/Guild/Rules.vue";
 import GuildSettingsView from "@/views/Guild/Settings.vue";
 
-import CreateRuleView from "@/views/Guild/CreateRule.vue";
+import RuleEditorView from "@/views/Guild/RuleEditor.vue";
 
 // User
 
@@ -29,6 +29,9 @@ const routes = [
   // { path: '/+:guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildModerationView },
   // { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
 
+  { path: '/+:guild/rules/create', name: 'create-rule-view', component: RuleEditorView },
+  { path: '/+:guild/rules/edit', name: 'edit-rule-view', component: RuleEditorView },
+
   {
     path: '/+:guild', component: GuildView, props: true,
     children: [
@@ -42,8 +45,7 @@ const routes = [
   { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
     //{ path: '/+:guild/settings', component: GuildSettingsView, name: 'guild-settings-view', props: true,
     ]
-  },
-  { path: '/+:guild/create/rule', name: 'create-rule-view', component: CreateRuleView }
+  }
 
   ]
 

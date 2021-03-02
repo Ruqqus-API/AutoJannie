@@ -4,7 +4,7 @@
 		<div class="relative hidden md:flex items-center flex-col flex-shrink-0 w-80 bg-white border-r dark:bg-gray-750 dark:border-white-13 center-line">
 			<div class="w-full p-4 bg-white border-b z-10">
 				<div class="flex items-center space-x-2 mb-4 text-sm">
-					<router-link :to="`/+${this.$route.params.guild}/rules/active`" class="text-gray-400 hover:text-gray-500 hover:underline">
+					<router-link :to="`/+${$route.params.guild}/rules`" class="text-gray-400 hover:text-gray-500 hover:underline">
 						Guild rules
 					</router-link>
 					<i class="fas fa-arrow-right fa-fw fa-sm text-gray-400"></i>
@@ -93,6 +93,14 @@
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="bg-white">
+					<div class="flex flex-col items-center justify-center z-10 opacity-40">
+						<button class="flex items-center justify-center rounded px-3 py-1.5 text-sm border font-medium text-gray-400 bg-gray-50 hover:text-gray-500 hover:bg-gray-100 transition duration-100 z-10">
+							<i class="fas fa-hat-wizard fa-sm fa-fw mr-2"></i>
+							Add action
+						</button>
 					</div>
 				</div>
 			</div>

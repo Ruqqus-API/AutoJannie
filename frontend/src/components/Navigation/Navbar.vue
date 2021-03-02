@@ -2,9 +2,14 @@
     <nav class="fixed w-full bg-white border-b-2 dark:bg-gray-800 z-50">
         <div class="mx-auto px-4">
             <div class="flex items-center justify-between h-12">
-                <div class="flex flex-grow items-center">
+                <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <router-link to="/" class="font-bold text-xl text-purple-500 tracking-wide">wizardgm</router-link>
+                        <router-link to="/" class="font-bold text-xl text-purple-500 tracking-wide">
+                            <i class="fas fa-hat-wizard fa-sm pr-2"></i>GuildWizard
+                        </router-link>
+                    </div>
+                    <div v-show="$route.name === 'create-rule-view'" class="ml-3 rounded-full px-3 py-1 font-mono font-medium text-2xs bg-yellow-100 text-yellow-700">
+                        <i class="fas fa-pen fa-sm pr-2"></i>Rule Editor
                     </div>
                 </div>
                 <div class="hidden md:block">
@@ -54,10 +59,9 @@
                     @keydown="keydownHandler"
                     >
                     <img class="w-9 h-9 object-cover rounded mr-2" src="https://i.ibb.co/BGq4NpT/Mydiscordpfp-105597.jpg" alt="user avatar"/>
-                    <div class="text-left">
+                    <div class="text-left mr-3">
                         username
                     </div>
-                    <i class="fas fa-chevron-down fa-sm text-gray-700 ml-8 mr-3"></i>
                 </button>
             </div>
             <!-- Menu -->
