@@ -13,7 +13,7 @@
 							/>
 						</div>
 						<div class="pl-3">
-							<div class="text-lg font-medium">{{ $route.params.guild }}</div>
+							<div class="text-lg font-medium">+{{ $route.params.guild }}</div>
 							<div class="text-sm text-gray-400">
 								1400 members
 							</div>
@@ -54,7 +54,10 @@ export default {
 				},
 				{
 					name: 'rules',
-					route: `/+${this.$route.params.guild}/rules`,
+					//route: `/+${this.$route.params.guild}/rules/active`,
+					route: {
+						name: 'guild-rules-view',
+					},
 					icon: 'fa-scroll',
 					textCase: 'capitalize'
 				},

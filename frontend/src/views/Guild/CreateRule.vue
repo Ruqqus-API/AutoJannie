@@ -3,6 +3,13 @@
 
 		<div class="relative hidden md:flex items-center flex-col flex-shrink-0 w-80 bg-white border-r dark:bg-gray-750 dark:border-white-13 center-line">
 			<div class="w-full p-4 bg-white border-b z-10">
+				<div class="flex items-center space-x-2 mb-4 text-sm">
+					<router-link :to="`/+${this.$route.params.guild}/rules/active`" class="text-gray-400 hover:text-gray-500 hover:underline">
+						Guild rules
+					</router-link>
+					<i class="fas fa-arrow-right fa-fw fa-sm text-gray-400"></i>
+					<div class="text-gray-500">Create new rule</div>
+				</div>
 				<div class="text-xl font-medium">Create a rule</div>
 				<p class="text-gray-500 text-sm mt-1">
 					Wizard will follow this rule and moderate your guild automagically.

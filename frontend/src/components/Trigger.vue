@@ -3,7 +3,7 @@
 		<div class="bg-white">
 			<div class="px-5 py-4" :class="active ? 'text-white bg-purple-500 rounded-t' : 'border text-gray-900 bg-white opacity-60 rounded'">
 				<div class="flex items-center space-x-3">
-					<div class="flex items-center justify-center px-2 w-14 h-14 text-xl font-bold rounded-md border-2 border-white border-opacity-40 text-opacity-90" :class="{'text-white':active}">
+					<div class="flex items-center justify-center px-2 w-14 h-14 text-xl font-bold rounded-md border-2 border-white border-dashed border-opacity-40 text-opacity-90" :class="{'text-white':active}">
 						<i class="fas fa-bolt"></i>
 					</div>
 					<div>

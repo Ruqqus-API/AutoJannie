@@ -51,6 +51,12 @@
       <div>
         <div class="grid grid-cols-12 p-8">
           <div class="col-start-2 col-end-12">
+            <div class="flex items-center space-x-2 mb-5">
+              <t-button variant="gray100" disabled>Trash</t-button>
+              <t-button :to="{ name: 'create-rule-view', params: { guild: this.$route.params.guild }}" variant="purple500">
+                Create new rule
+              </t-button>
+            </div>
             <div class="space-y-4">
               <Rule v-for="rule in rules" :key="rule.id" :rule="rule"/>
             </div>

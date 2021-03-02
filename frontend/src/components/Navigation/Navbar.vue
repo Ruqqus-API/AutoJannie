@@ -67,14 +67,14 @@
       <i class="fas fa-columns text-center fa-fw mr-2"></i><span>Dashboard</span>
   </router-link> -->
   <router-link to="/+minecraft" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
-    <i class="fas fa-rook text-center fa-fw mr-2"></i><span>Moderated Guilds</span>
+    <i class="fas fa-crown fa-sm fa-fw mr-2"></i><span>Guilds</span>
 </router-link>
 <router-link to="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
-    <i class="fas fa-cog text-center fa-fw mr-2"></i><span>My Account</span>
+    <i class="fas fa-cog fa-sm fa-fw mr-2"></i><span>My Account</span>
 </router-link>
 <hr class="my-2">
 <router-link to="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100 hover:text-red-700" role="menuitem" @blur="blurHandler">
-    <i class="fas fa-door-open text-center fa-fw mr-2"></i><span>Sign Out</span>
+    <i class="fas fa-door-open fa-sm fa-fw mr-2"></i><span>Sign Out</span>
 </router-link>
 </div>
 </t-dropdown>
