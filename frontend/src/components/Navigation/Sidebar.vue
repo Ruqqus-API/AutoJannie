@@ -9,15 +9,15 @@
 			<slot name="header" v-if="!stickyHeader"/>
 
 			<div class="py-3">
-				<ul v-for="(section, index) in menu" :key="index" class="mb-5 list-unstyled border-gray-200 dark:border-white-13" :class="{'pb-2 border-b':section.divider}">
-					<li v-if="section.header" slot="header" class="py-1 sticky top-0 dark:bg-gray-750 dark:border-white-13" :class="'bg-'+sidebarColor">
+				<ul v-for="(section, index) in menu" :key="index" class="-mt-2 mb-5 list-unstyled border-gray-200 dark:border-white-13" :class="{'pb-2 border-b':section.divider}">
+					<li v-if="section.header" slot="header" class="py-1 sticky top-0 bg-white dark:bg-gray-750 dark:border-white-13">
 						<div class="px-4 text-xs tracking-wide font-bold uppercase text-gray-500 text-opacity-80 dark:text-opacity-60">
 							{{ section.name }}
 						</div>
 					</li>
 					<li v-for="(item, index) in section.items" :key="index" class="item">
-						<div v-if="item.header" class="mt-4 mb-2">
-							<div class="px-6 text-xs uppercase text-gray-500 font-bold tracking-wide mb-3">
+						<div v-if="item.header">
+							<div class="px-6 text-2xs uppercase text-gray-500 font-medium tracking-wide mb-2">
 								{{ item.name }}
 							</div>
 						</div>

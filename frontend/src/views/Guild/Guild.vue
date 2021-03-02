@@ -4,10 +4,10 @@
 			<template v-slot:header>
 				<div class="flex flex-shrink-0 w-full items-center h-20 md:px-6 border-b dark:border-white dark:border-opacity-10 dark:bg-gray-700">
 					<div class="flex items-center">
-						<div class="border rounded bg-gray-50 p-2">
+						<div class="border rounded bg-gray-50 p-1">
 							<img
 							src="https://i.ibb.co/3CLCcQ4/image.png"
-							class="w-10 h-10 bg-gray-300 dark:bg-gray-800"
+							class="w-9 h-9 bg-gray-300 dark:bg-gray-800"
 							alt="Guild icon"
 							to="/+minecraft"
 							/>
@@ -44,8 +44,13 @@ export default {
 		return {
 			menu: [
 			{
+				header: true,
 				mobileDivider: true,
 				items: [
+				{
+					header: true,
+					name: 'moderation'
+				},
 				{
 					name: 'overview',
 					route: `/+${this.$route.params.guild}/overview`,
