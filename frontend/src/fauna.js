@@ -1,7 +1,7 @@
 const faunadb = require('faunadb')
 const { Get, Match, Index, Map, Paginate, Lambda, Var, Let, If, Exists, Update, Select, Create, Collection } = require('faunadb')
 
-const client = new faunadb.Client({ secret: "fnAECxesB8ACBY3E8bmCIfpBYikntW5IwxRPPNPk" })
+const client = new faunadb.Client({ secret: process.env.FAUNA_SECRET })
 
 const getGuildById = (guild_id) => client.query(Get(Match(Index("guild_by_id"), guild_id)))
 const getGuildByName = (guild_name) => client.query(Get(Match(Index("guild_by_name"), guild_name)))
