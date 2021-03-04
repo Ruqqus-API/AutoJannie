@@ -18,7 +18,7 @@
 					<label class="label">Trigger</label>
 					<form class="flex flex-col w-100 space-y-4">
 						<div v-for="(trigger, index) in triggers" :key="index" class="flex flex-row content-center flex-grow p-6 border border-gray-200 rounded hover:bg-gray-100">
-							<t-radio name="options" :checked="trigger.checked" />
+							<t-radio name="options" :checked="trigger.checked" @click="anyChecked = true" />
 							<span class="flex-shrink-0 ml-2">
 								<i class="fas fa-fw text-3xl" :class="trigger.icon"></i>
 							</span>
@@ -32,7 +32,7 @@
 					</form>
 				</div>
 				<div class="mt-5 flex justify-end p-5 border-t">
-					<t-button variant="purple500">
+					<t-button variant="purple500" :disabled="!anyChecked">
 						Next step
 						<i class="fas fa-arrow-right fa-sm pl-2"></i>
 					</t-button>
@@ -84,13 +84,9 @@ export default {
 				icon: 'fa-comment-alt',
 				description: 'Triggers when a comment is posted to a guild thread.',
 			}
-			]
+			],
+			anyChecked: false,
 		}
 	},
-	/*computed: {
-		anyChecked: function() {
-			return (this.triggers.filter((trigger) => {trigger.checked}).length > 0);
-		},
-	},*/
 }
 </script>
