@@ -16,19 +16,20 @@
 
 				<div class="p-5">
 					<label class="label">Trigger</label>
-					<t-rich-select placeholder="Select a trigger..."/>
-				</div>
-
-				<div class="space-y-3 hidden">
-					<button v-for="trigger in triggers" :key="trigger.name" class="flex w-full text-left space-x-3 p-4 rounded bg-white border hover:border-purple-500">
-						<div class="flex items-center justify-center px-2 w-10 h-10 text-lg bg-gray-100 shadow-inner font-bold rounded-sm text-gray-500 hover:text-gray-800">
-							<i class="fas fa-fw fa-sm" :class="trigger.icon"></i>
+					<form class="flex flex-col w-100 space-y-4">
+						<div v-for="(trigger, index) in triggers" :key="index" class="flex flex-row content-center flex-grow p-6 border border-gray-200 rounded hover:bg-gray-100">
+							<t-radio name="options" :checked="trigger.checked" />
+							<span class="flex-shrink-0 ml-2">
+								<i class="fas fa-fw text-3xl" :class="trigger.icon"></i>
+							</span>
+							<div class="flex flex-col ml-2">
+								<strong>
+									{{ trigger.name }}
+								</strong>
+								<span class="text-sm leading-tight text-gray-700">{{ trigger.description }}</span>
+							</div>
 						</div>
-						<div>
-							<div class="text-lg capitalize font-medium">{{ trigger.type }}</div>
-							<p class="text-gray-600 mt-1">{{ trigger.description }}</p>
-						</div>
-					</button>
+					</form>
 				</div>
 				<div class="mt-5 flex justify-end p-5 border-t">
 					<t-button variant="purple500">
@@ -61,26 +62,35 @@ export default {
 			triggers: [
 			{
 				id: 1,
+				checked: false,
 				type: 'link',
+				name: 'New Link Post',
 				icon: 'fa-link',
 				description: 'Triggers when a link submission is posted to the guild.',
 			},
 			{
 				id: 2,
+				checked: false,
 				type: 'text',
+				name: 'New Text Post',
 				icon: 'fa-quote-left',
 				description: 'Triggers when a text submission is posted to the guild.',
 			},
 			{
 				id: 3,
+				checked: false,
 				type: 'comment',
+				name: 'New Comment',
 				icon: 'fa-comment-alt',
 				description: 'Triggers when a comment is posted to a guild thread.',
 			}
 			]
 		}
 	},
-	computed: {
-	}
+	/*computed: {
+		anyChecked: function() {
+			return (this.triggers.filter((trigger) => {trigger.checked}).length > 0);
+		},
+	},*/
 }
 </script>
