@@ -2,13 +2,10 @@
     <nav class="fixed w-full bg-white border-b dark:bg-gray-800 z-50">
         <div class="mx-auto px-6">
             <div class="flex items-center justify-between h-12">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <router-link to="/" class="font-medium text-xl text-purple-500 tracking-wide">
-                            <i class="fas fa-hat-wizard fa-sm pr-2"></i>
-                        </router-link>
-                    </div>
-                </div>
+                <router-link :to="`/+${$route.params.guild}/rules`" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
+                    <span class="sr-only">Back to guild rules</span>
+                    <i class="fas fa-arrow-left"></i>
+                </router-link>
                 <div class="ml-3 rounded-full px-3 py-1 font-mono font-medium text-xs bg-yellow-100 text-yellow-700">
                     <i class="fas fa-pen fa-sm pr-2"></i>Rule Editor
                 </div>
