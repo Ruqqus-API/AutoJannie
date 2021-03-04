@@ -1,10 +1,10 @@
   <template>
-    <nav class="fixed w-full bg-white border-b-2 dark:bg-gray-800 z-50">
-        <div class="mx-auto px-6">
+    <nav class="fixed w-full bg-white border-b dark:bg-gray-800 z-50">
+        <div class="max-w-7xl mx-auto px-6">
             <div class="flex items-center justify-between h-12">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <router-link to="/" class="font-bold text-xl text-purple-500 tracking-wide">
+                        <router-link to="/" class="font-medium text-xl text-purple-500 tracking-wide">
                             <i class="fas fa-hat-wizard fa-sm pr-2"></i>GuildWizard
                         </router-link>
                     </div>
@@ -157,11 +157,15 @@
 </template>
 
 <script>
+
+    //import SelectGuild from "@/components/Select/SelectGuild.vue"
     export default {
         name: "Navbar",
         data() {
             return {
             };
+        },
+        components: {
         }
     };
 </script>

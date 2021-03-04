@@ -170,7 +170,7 @@ const settings = {
 			classes: {
 				wrapper: '',
 				buttonWrapper: '',
-				selectButton: 'bg-white border-gray-300',
+				selectButton: 'bg-light border-gray-300',
 				selectButtonLabel: '',
 				selectButtonPlaceholder: 'text-gray-400',
 				selectButtonIcon: 'text-gray-600',

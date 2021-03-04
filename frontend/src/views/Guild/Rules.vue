@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col flex-grow bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-7xl mx-auto flex flex-grow h-full bg-white dark:bg-gray-900">
 
     <!-- Header content section -->
-    <div class="w-full px-6 h-20 flex-shrink-0 bg-white border-b">
+    <div class="hidden w-full px-6 h-20 flex-shrink-0 bg-white border-b">
       <div class="grid grid-cols-12 h-full">
         <div class="col-span-6 flex flex-col justify-between">
           <div class="flex items-center space-x-3 mt-3">
@@ -46,11 +46,34 @@
       </div>
     </div>
 
+    <div class="hidden md:flex items-center flex-col flex-shrink-0 w-80 bg-white border-r dark:bg-gray-750 dark:border-white-13">
+      <div class="px-6 py-4 w-full space-y-4">
+        <SelectGuild/>
+        <div class="relative flex items-center justify-center pt-4 border-t">
+          <i class="absolute left-3 fas fa-search fa-fw text-gray-400 z-0"></i>
+          <t-input placeholder="Filter rules" variant="primary" :fixedClasses="'block w-full pl-9 pr-3 py-2 transition duration-100 ease-in-out border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed'"/>
+        </div>
+        <div>
+          <router-link v-slot="{ href, navigate, isExactActive }" v-for="tab in tabs" :key="tab.id" :to="tab.route">
+            <a :href="href" @click="navigate" class="block py-2 text-left transition duration-100" :class="isExactActive ? 'text-purple-500' : 'text-gray-500 hover:text-gray-600'">
+              <span class="flex items-center justify-between">
+                <span class="font-medium capitalize">{{ tab.name }}</span>
+                <span v-if="tab.badge" class="ml-1 px-3 py-0.5 rounded-full border text-sm font-normal" :class="isExactActive ? 'text-purple-500 bg-purple-100 border-transparent' : 'text-gray-500 bg-white'">
+                  {{ tab.badge.count }}
+                </span>
+              </span>
+            </a>
+          </router-link>
+        </div>
+      </div>
+    </div>
+
     <!-- Main content section -->
     <vue-scroll>
       <div>
-        <div class="grid grid-cols-12 p-8">
+        <div class="grid grid-cols-12 p-4">
           <div class="col-start-1 col-end-12 lg:col-start-2">
+            <div class="text-2xl font-medium mb-5">Active Rules</div>
             <div class="flex items-center space-x-2 mb-5">
               <div class="flex items-center bg-white border rounded h-9">
                 <div class="flex items-center justify-center w-9">
@@ -100,10 +123,12 @@
 <script>
 // import component
 import Rule from "@/components/Rule.vue"
+import SelectGuild from "@/components/Select/SelectGuild.vue"
 
 export default {
   name: "GuildRules",
   components: {
+    SelectGuild,
     Rule
   },
   data() {
