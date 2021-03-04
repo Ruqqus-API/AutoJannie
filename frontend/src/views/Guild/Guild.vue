@@ -1,7 +1,7 @@
 <template>
 	<div class="h-screen pt-12">
 		<div class="bg-white border-b">
-			<div class="max-w-6xl mx-auto px-6 h-14">
+			<div class="max-w-6xl mx-auto px-6 h-16">
 				<!-- Tabs -->
 				<div class="flex flex-shrink-0 items-end space-x-6 w-full h-full">
 					<router-link v-for="tab in tabs" :key="tab.name" v-slot="{ href, navigate, isExactActive }" :to="tab.route">
@@ -46,9 +46,6 @@ export default {
 				route: {
 					name: 'guild-rules-view',
 					params: { sort: 'active' }
-				},
-				badge: {
-					count: 2
 				}
 			},
 			{
