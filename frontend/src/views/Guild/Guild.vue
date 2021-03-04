@@ -49,7 +49,7 @@ export default {
 				}
 			},
 			{
-				name: "settings",
+				name: "audit log",
 				route: {
 					name: 'guild-settings-view'
 				}
