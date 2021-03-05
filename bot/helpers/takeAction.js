@@ -1,9 +1,10 @@
-const calculatePassedTime = require('../helpers/datemath')
+const { calculatePassedTime } = require('../helpers/datemath')
 
 module.exports = {
-	execute({ client, faunaClient, redisClient }, submission, config) {
-
+	async execute({ client, faunaClient, redisClient }, submission, config) {
 		const s = submission
+
+		var author = await client.users.fetch(s.author.username)
 
 		console.log(s.content.title)
 
@@ -24,7 +25,7 @@ module.exports = {
 			},
 
 			exile: () => {
-				client.APIRequest({ type: "POST", path: `exile/${s.guild.id}/${s.guild.id}?user=${s.author.username}&thing=${s.full_id}` })
+				client.APIRequest({ type: "POST", path: `exile/${s.guild.id}/${s.guild.id}?user=${author.username}&thing=${s.full_id}` })
 				return true
 			},
 
@@ -56,17 +57,16 @@ module.exports = {
 				// TODO
 			},
 
-			is_guildmaster: () => config.data.guildmasters.some(gm => gm.username === s.author.username),
+			is_guildmaster: () => config.data.guildmasters.some(gm => gm.username === author.username),
 
-			comment_rep: ({ r, c }) => user_rep_calc(r[c], s.author.stats.comment_rep),
+			comment_rep: ({ r, c, s, check }) => user_rep_calc(r[c][check], author.stats.comment_rep),
 
-			post_rep: ({ r, c }) => user_rep_calc(r[c], s.author.stats.post_rep),
+			post_rep: ({ r, c, s, check }) => user_rep_calc(r[c][check], author.stats.post_rep),
 
-			rep: (c) => user_rep_calc(r[c], s.author.stats.post_rep + s.author.stats.comment_rep),
+			rep: ({ r, c, s, check }) => user_rep_calc(r[c][check], author.stats.post_rep + author.stats.comment_rep),
 
-			account_age: ({ r, c }) => {
-				let v = r[c]
-				v = v.toLowerCase();
+			account_age: ({ r, c, check }) => {
+				let v = r[c][check]
 				let reg = /([<>]) (\d+) (second|minute|hour|day|week|month|year)/g
 
 				let matches = reg.exec(v);
@@ -74,10 +74,10 @@ module.exports = {
 				const time_needed = calculatePassedTime(matches[2], matches[3])
 
 				if (matches[1] == '<') {
-					return (Date.now() / 1000 - s.author.created_at < time_needed)
+					return (Date.now() / 1000 - author.created_at < time_needed)
 
 				} else if (matches[1] == '>') {
-					return (Date.now() / 1000 - s.author.created_at >= time_needed)
+					return (Date.now() / 1000 - author.created_at >= time_needed)
 
 				} else {
 					return false
@@ -95,7 +95,7 @@ module.exports = {
 
 			author: ({ c, save, r }) => {
 				let val = []
-				for (check in c) {
+				for (check in r[c]) {
 					val.push(author_handler[check]({ s, t, c, save, check, r }))
 				}
 				return val.every(v => v === true)
@@ -150,7 +150,6 @@ module.exports = {
 				} else {
 					return (s.content.body.text).includes(r[c])
 				}
-
 			}
 		}
 
@@ -162,6 +161,7 @@ module.exports = {
 					if (!handlers.hasOwnProperty(c)) continue
 					save[c] = handlers[c]({ c, save, r, s })
 				}
+				console.log(save)
 			}
 
 		})
@@ -175,7 +175,6 @@ module.exports = {
 				re.push(res)
 			}
 			return val
-
 		}
 
 		function all_executed(save, not_needed) {
@@ -188,10 +187,9 @@ module.exports = {
 		}
 
 		function user_rep_calc(rep, compare) {
-			rep = rep.toLowerCase();
 			let reg = /([<>]) (\d+)/g
 
-			let matches = reg.exec(v);
+			let matches = reg.exec(rep);
 
 			if (matches[1] == '<') {
 				return (matches[2] < compare)
