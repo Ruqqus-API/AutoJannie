@@ -28,7 +28,7 @@ module.exports = {
 			name: post.guild.name,
 			config_post_id: post.id,
 			guildmasters: guildmasters,
-			guild: guild,
+			guild_id: guild.id,
 			rules_yaml: postText,
 			rules: rules
 		}
