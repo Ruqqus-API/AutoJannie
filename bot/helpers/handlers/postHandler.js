@@ -24,6 +24,7 @@ module.exports = {
 				if (Boolean(config_exists)) {
 					config = await faunaClient.query(Get(Match(Index("guild_by_name"), post.guild.name))).catch(err => console.log(err))
 					redisClient.set(`${post.guild.name}_config`, JSON.stringify(config))
+					require('../takeAction').execute(passOn, post, config)
 				} else {
 					config_exists = await faunaClient.query(Exists(Match(Index('guild_by_name'), post.guild.name))).catch(err => console.log(err))
 					redisClient.set(`${post.guild.name}_config_exists`, config_exists)
@@ -31,11 +32,11 @@ module.exports = {
 					if (Boolean(config_exists)) {
 						config = await faunaClient.query(Get(Match(Index("guild_by_name"), post.guild.name))).catch(err => console.log(err))
 						redisClient.set(`${post.guild.name}_config`, JSON.stringify(config))
+						require('../takeAction').execute(passOn, post, config)
 					}
 				}
 			}
-
-			require('../takeAction').execute(passOn, post, config)
+			
 
 		} catch (error) {
 			log(error)
