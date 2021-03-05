@@ -1,12 +1,12 @@
 <template>
 	<div class="h-screen pt-12">
 		<div class="bg-white border-b">
-			<div class="max-w-7xl mx-auto px-6 h-12">
+			<div class="max-w-6xl mx-auto px-6 h-16">
 				<!-- Tabs -->
 				<div class="flex flex-shrink-0 items-end space-x-6 w-full h-full">
 					<router-link v-for="tab in tabs" :key="tab.name" v-slot="{ href, navigate, isExactActive }" :to="tab.route">
 						<a :href="href" @click="navigate" class="group">
-							<div class="border-b-2 pb-3 capitalize font-medium leading-tight" :class="isExactActive ? 'text-gray-900 border-purple-500' : 'text-gray-500 hover:text-gray-700 border-transparent'">
+							<div class="border-b-2 pb-5 capitalize font-medium leading-tight" :class="isExactActive ? 'text-gray-900 border-purple-500' : 'text-gray-500 hover:text-gray-700 border-transparent'">
 								{{ tab.name }}
 								<span v-if="tab.badge" class="ml-1 px-2 py-0.5 rounded-full bg-white border text-sm text-gray-500 font-normal">
 									{{ tab.badge.count }}
@@ -46,13 +46,10 @@ export default {
 				route: {
 					name: 'guild-rules-view',
 					params: { sort: 'active' }
-				},
-				badge: {
-					count: 2
 				}
 			},
 			{
-				name: "settings",
+				name: "audit log",
 				route: {
 					name: 'guild-settings-view'
 				}
