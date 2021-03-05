@@ -1,3 +1,5 @@
+const calculatePassedTime = require('../helpers/datemath')
+
 module.exports = {
 	execute({ client, faunaClient, redisClient }, submission, config) {
 
@@ -56,11 +58,30 @@ module.exports = {
 
 			is_guildmaster: () => config.data.guildmasters.some(gm => gm.username === s.author.username),
 
-			comment_rep: (c) => {
+			comment_rep: ({ r, c }) => user_rep_calc(r[c], s.author.stats.comment_rep),
 
-			},
+			post_rep: ({ r, c }) => user_rep_calc(r[c], s.author.stats.post_rep),
 
-			account_age: (c) => {
+			rep: (c) => user_rep_calc(r[c], s.author.stats.post_rep + s.author.stats.comment_rep),
+
+			account_age: ({ r, c }) => {
+				let v = r[c]
+				v = v.toLowerCase();
+				let reg = /([<>]) (\d+) (second|minute|hour|day|week|month|year)/g
+
+				let matches = reg.exec(v);
+
+				const time_needed = calculatePassedTime(matches[2], matches[3])
+
+				if (matches[1] == '<') {
+					return (Date.now() / 1000 - s.author.created_at < time_needed)
+
+				} else if (matches[1] == '>') {
+					return (Date.now() / 1000 - s.author.created_at >= time_needed)
+
+				} else {
+					return false
+				}
 
 			}
 		}
@@ -72,16 +93,15 @@ module.exports = {
 
 			and: ({ c, save, r, s }) => ororand(c, handlers, { c, save, r, s }).every(v => v === true),
 
-			author: ({ c, save }) => {
+			author: ({ c, save, r }) => {
 				let val = []
 				for (check in c) {
-					val.push(author_handler[check]({ s, t, c, save, check }))
+					val.push(author_handler[check]({ s, t, c, save, check, r }))
 				}
 				return val.every(v => v === true)
 			},
 
 			action: ({ c, save, r }) => {
-				console.log("ACTION BLOCK")
 				if (!all_executed(save, not_needed)) return false
 				return actions[r[c]]()
 			},
@@ -114,7 +134,24 @@ module.exports = {
 				}
 			},
 
+			text: ({ c, r, s }) => {
+				if (!is_submission(t, submission_type)) return false
+				if (r[c] == s.content.body.text) {
+					return true
+				} else {
+					return false
+				}
+			},
 
+			'text-includes': ({ c, r, s }) => {
+				if (!is_submission(t, submission_type)) return false
+				if (Array.isArray(r[c])) {
+					return r[c].some(e => (s.content.body.text).includes(e))
+				} else {
+					return (s.content.body.text).includes(r[c])
+				}
+
+			}
 		}
 
 
@@ -148,6 +185,23 @@ module.exports = {
 				n.push(save[i])
 			}
 			return n.every(v => v == true)
+		}
+
+		function user_rep_calc(rep, compare) {
+			rep = rep.toLowerCase();
+			let reg = /([<>]) (\d+)/g
+
+			let matches = reg.exec(v);
+
+			if (matches[1] == '<') {
+				return (matches[2] < compare)
+
+			} else if (matches[1] == '>') {
+				return (matches[2] >= compare)
+
+			} else {
+				return false
+			}
 		}
 	}
 }
