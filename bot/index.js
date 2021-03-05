@@ -26,8 +26,7 @@ client.login({
 	token: process.env.CLIENT_SECRET,
 	refresh: process.env.REFRESH_TOKEN,
 })
-/*
+
 process.on('unhandledRejection', error => {
-	// Will print "unhandledRejection err is not defined"
 	console.log('unhandledRejection', error.message);
-});*/
+});

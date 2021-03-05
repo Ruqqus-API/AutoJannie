@@ -31,13 +31,13 @@ module.exports = {
 			},
 
 			toggle_nsfw: (s) => {
-				if (t == 'comment') return { error: 'Can\'t kick a comment!' }
+				if (t == 'comment') return { error: 'Can\'t toggle NSFW on a comment!' }
 				client.APIRequest({ type: "POST", path: `toggle_post_nsfw/${s.id}` })
 				return true
 			},
 
 			toggle_nsfl: (s) => {
-				if (t == 'comment') return { error: 'Can\'t kick a comment!' }
+				if (t == 'comment') return { error: 'Can\'t toggle NSFW a comment!' }
 				client.APIRequest({ type: "POST", path: `toggle_post_nsfl/${s.id}` })
 				return true
 			}
@@ -80,15 +80,6 @@ module.exports = {
 				return val.every(v => v === true)
 			},
 
-			title: ({ c, r, s }) => {
-				if (!is_submission(t, submission_type)) return false
-				if (r[c] == s.content.title) {
-					return true
-				} else {
-					return false
-				}
-			},
-
 			action: ({ c, save, r }) => {
 				console.log("ACTION BLOCK")
 				if (!all_executed(save, not_needed)) return false
@@ -103,7 +94,25 @@ module.exports = {
 					s.comment(r[c])
 				}
 				return true
-			}
+			},
+
+			title: ({ c, r, s }) => {
+				if (!is_submission(t, submission_type)) return false
+				if (r[c] == s.content.title) {
+					return true
+				} else {
+					return false
+				}
+			},
+
+			'title-includes': ({ c, r, s }) => {
+				if (!is_submission(t, submission_type)) return false
+				if (Array.isArray(r[c])) {
+					return r[c].some(e => e.includes(s.content.title))
+				} else {
+					return r[c].includes(s.content.title)
+				}
+			},
 
 		}
 
