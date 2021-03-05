@@ -108,11 +108,12 @@ module.exports = {
 			'title-includes': ({ c, r, s }) => {
 				if (!is_submission(t, submission_type)) return false
 				if (Array.isArray(r[c])) {
-					return r[c].some(e => e.includes(s.content.title))
+					return r[c].some(e => (s.content.title).includes(e))
 				} else {
-					return r[c].includes(s.content.title)
+					return (s.content.title).includes(r[c])
 				}
 			},
+
 
 		}
 
@@ -146,10 +147,7 @@ module.exports = {
 				if (not_needed.includes(i)) continue
 				n.push(save[i])
 			}
-			if (!n.every(v => v == true)) {
-				return false
-			}
-			return true
+			return n.every(v => v == true)
 		}
 	}
 }
