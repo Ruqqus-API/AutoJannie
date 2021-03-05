@@ -15,7 +15,6 @@ module.exports = {
 
 		const actions = {
 			kick: () => {
-				console.log("KICK SHOULD'VE DONE SOMETHING")
 				if (t == 'comment') return { error: 'Can\'t kick a comment!' }
 				client.APIRequest({ type: "POST", path: `kick/${s.guild.id}/${s.id}` })
 				return true
@@ -32,11 +31,13 @@ module.exports = {
 			},
 
 			toggle_nsfw: (s) => {
+				if (t == 'comment') return { error: 'Can\'t kick a comment!' }
 				client.APIRequest({ type: "POST", path: `toggle_post_nsfw/${s.id}` })
 				return true
 			},
 
 			toggle_nsfl: (s) => {
+				if (t == 'comment') return { error: 'Can\'t kick a comment!' }
 				client.APIRequest({ type: "POST", path: `toggle_post_nsfl/${s.id}` })
 				return true
 			}
@@ -44,22 +45,13 @@ module.exports = {
 		}
 
 		const author_handler = {
-			or: ({ check }) => {
-				let val = []
-				const res = ororand(check, author_handler)
-				val.push(res.some(v => v === true))
 
-			},
+			or: ({ c, save, r, s }) => ororand(check, author_handler, { c, save, r, s }).some(v => v === true),
 
-			and: ({ check }) => {
-				let val = []
-				const res = ororand(check, author_handler)
-				val.push(res.every(v => v === true))
-			},
+			and: ({ c, save, r, s }) => ororand(check, author_handler, { c, save, r, s }).push(res.every(v => v === true)),
 
 			is_contributor: () => {
 				// TODO
-
 			},
 
 			is_guildmaster: () => config.data.guildmasters.some(gm => gm.username === s.author.username),
@@ -76,9 +68,10 @@ module.exports = {
 
 		const handlers = {
 
-			or: ({ c }) => ororand(c, handlers).some(v => v === true),
+			or: ({ c, save, r, s }) => ororand(c, handlers, { c, save, r, s }).some(v => v === true),
 
-			and: ({ c }) => ororand(c, handlers).every(v => v === true),
+			and: ({ c, save, r, s }) => ororand(c, handlers, { c, save, r, s }).every(v => v === true),
+
 			author: ({ c, save }) => {
 				let val = []
 				for (check in c) {
@@ -127,11 +120,11 @@ module.exports = {
 		})
 
 
-		function ororand(obj, handler) {
+		function ororand(obj, handler, pass) {
 			let val = []
 
 			for (conf in obj) {
-				const res = handler[conf]
+				const res = handler[conf](pass)
 				re.push(res)
 			}
 			return val
@@ -148,8 +141,6 @@ module.exports = {
 				return false
 			}
 			return true
-
-
 		}
 	}
 }
