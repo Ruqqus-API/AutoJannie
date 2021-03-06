@@ -118,38 +118,22 @@ module.exports = {
 
 			title: ({ c, r, s }) => {
 				if (!is_submission(t, submission_type)) return false
-				if (r[c] == s.content.title) {
-					return true
-				} else {
-					return false
-				}
+				return exact(r[c], s.content.title)
 			},
 
 			'title-includes': ({ c, r, s }) => {
 				if (!is_submission(t, submission_type)) return false
-				if (Array.isArray(r[c])) {
-					return r[c].some(e => (s.content.title).includes(e))
-				} else {
-					return (s.content.title).includes(r[c])
-				}
+				return includes(r[c], s.content.title)
 			},
 
 			text: ({ c, r, s }) => {
 				if (!is_submission(t, submission_type)) return false
-				if (r[c] == s.content.body.text) {
-					return true
-				} else {
-					return false
-				}
+				return exact(r[c], s.content.body.text)
 			},
 
 			'text-includes': ({ c, r, s }) => {
 				if (!is_submission(t, submission_type)) return false
-				if (Array.isArray(r[c])) {
-					return r[c].some(e => (s.content.body.text).includes(e))
-				} else {
-					return (s.content.body.text).includes(r[c])
-				}
+				return includes(r[c], s.content.body.text)
 			}
 		}
 
@@ -165,7 +149,6 @@ module.exports = {
 			}
 
 		})
-
 
 		function ororand(obj, handler, pass) {
 			let val = []
@@ -188,17 +171,33 @@ module.exports = {
 
 		function user_rep_calc(rep, compare) {
 			let reg = /([<>]) (\d+)/g
-		
+
 			let matches = reg.exec(rep);
-		
+
 			if (matches[1] == '<') {
 				return (compare < parseInt(matches[2]))
-		
+
 			} else if (matches[1] == '>') {
 				return (compare >= parseInt(matches[2]))
-		
+
 			} else {
 				return false
+			}
+		}
+
+		function exact(check, str) {
+			if (Array.isArray(check)) {
+				return check.some(e => str == e)
+			} else {
+				return str == check
+			}
+		}
+		
+		function includes(check, str) {
+			if (Array.isArray(check)) {
+				return check.some(e => str.includes(e))
+			} else {
+				return str.includes(check)
 			}
 		}
 	}
