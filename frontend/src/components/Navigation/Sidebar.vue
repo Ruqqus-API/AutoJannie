@@ -17,25 +17,21 @@
 					</li>
 					<li v-for="(item, index) in section.items" :key="index" class="item">
 						<div v-if="item.header">
-							<div class="px-6 text-2xs uppercase text-gray-500 font-medium tracking-wide mb-2">
+							<div class="px-4 text-xs uppercase text-gray-500 tracking-wider font-medium mb-1">
 								{{ item.name }}
 							</div>
 						</div>
 						<div v-if="!item.header">
 							<router-link v-slot="{ href, navigate, isActive }" :to="item.route">
-								<a :href="href" @click="navigate" class="block px-6 py-2 text-left transition duration-100" :class="isActive ? 'text-white bg-purple-500' : 'text-gray-500 hover:bg-gray-100'">
-									<span v-if="!item.icon" class="flex items-center">
-										<img
-										:id="item.id"
-										v-lazy="item.src"
-										class="w-12 h-12 object-fit bg-gray-300 dark:bg-gray-700 rouned-sm"
-										:alt="item.alt"
-										/>
-										<span class="pl-3">+{{ item.name }}</span>
-									</span>
-									<span v-else class="flex items-center">
-										<i class="fas fa-fw text-2xs mr-3" :class="item.icon"></i>
-										<span class="font-semibold" :class="item.textCase">{{ item.name }}</span>
+								<a :href="href" @click="navigate" class="block px-4 py-2 text-left transition duration-100 border-t border-b" :class="isActive ? 'text-blue-500 bg-blue-50 border-blue-100' : 'text-gray-700 border-transparent hover:bg-gray-50'">
+									<span class="flex items-center justify-between">
+										<span class="flex items-center">
+											<i class="fas fa-fw mr-3" :class="[isActive ? 'text-blue-500' : 'text-gray-500', item.icon]"></i>
+											<span :class="item.textCase">{{ item.name }}</span>
+										</span>
+										<span v-if="item.badge" class="ml-1 px-2.5 py-0.5 rounded-full border text-xs leading-none font-normal text-white border-transparent" :class="isActive ? 'bg-orange-500' : 'bg-gray-300'">
+											{{ item.badge.count }}
+										</span>
 									</span>
 								</a>
 							</router-link>
@@ -43,10 +39,8 @@
 					</li>
 				</ul>
 			</div>
-
-			<div class="p-3">
-				<slot name="footer"/>
-			</div>
+			
+			<slot name="footer"/>
 
 		</vue-scroll>
 	</div>

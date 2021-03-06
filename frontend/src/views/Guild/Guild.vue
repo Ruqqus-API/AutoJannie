@@ -1,22 +1,29 @@
 <template>
-	<div class="h-screen pt-12">
-		<div class="bg-white border-b">
-			<div class="max-w-6xl mx-auto px-6 h-16">
-				<!-- Tabs -->
-				<div class="flex flex-shrink-0 items-end space-x-6 w-full h-full">
-					<router-link v-for="tab in tabs" :key="tab.name" v-slot="{ href, navigate, isExactActive }" :to="tab.route">
-						<a :href="href" @click="navigate" class="group">
-							<div class="border-b-2 pb-5 capitalize font-medium leading-tight" :class="isExactActive ? 'text-gray-900 border-purple-500' : 'text-gray-500 hover:text-gray-700 border-transparent'">
-								{{ tab.name }}
-								<span v-if="tab.badge" class="ml-1 px-2 py-0.5 rounded-full bg-white border text-sm text-gray-500 font-normal">
-									{{ tab.badge.count }}
-								</span>
-							</div>
-						</a>
-					</router-link>
+	<div class="flex h-screen pt-12">
+		<Sidebar :menu="menu">
+			<template v-slot:header>
+				<div class="p-4">
+					<SelectGuild/>
 				</div>
-			</div>
-		</div>
+			</template>
+			<template v-slot:footer>
+				<div class="absolute bottom-0 w-full">
+					<div class="w-full border-t p-4 space-y-6">
+						<div class="text-gray-600">
+							<i class="fas fa-cog fa-fw mr-4 text-gray-500"></i>Settings
+						</div>
+						<div class="space-y-3">
+							<div class="text-gray-600">
+								<i class="fas fa-external-link-alt fa-fw mr-4 text-gray-500"></i>Visit guild
+							</div>
+							<div class="text-gray-600">
+								<i class="fas fa-book fa-fw mr-4 text-gray-500"></i>GuildWizard Docs
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+		</Sidebar>
 
 		<!-- Content section -->
 		<router-view></router-view>
@@ -28,32 +35,48 @@
 // Import Components
 //import { mapState } from 'vuex';
 
+import Sidebar from "@/components/Navigation/Sidebar.vue";
+import SelectGuild from "@/components/Select/SelectGuild";
+
 export default {
 	name: "GuildView",
 	components: {
+		Sidebar,
+		SelectGuild
 	},
 	data() {
 		return {
-			tabs: [
+			menu: [
 			{
-				name: "overview",
-				route: {
-					name: 'guild-overview-view',
+				mobileDivider: true,
+				items: [
+				{
+					header: true,
+					name: 'moderation'
+				},
+				{
+					name: 'overview',
+					route: `/+${this.$route.guild}/overview`,
+					icon: 'fa-columns',
+					textCase: 'capitalize'
+				},
+				{
+					name: 'rules',
+					route: `/+${this.$route.guild}/rules`,
+					icon: 'fa-gavel',
+					textCase: 'capitalize',
+					badge: {
+						count: 10
+					}
+				},
+				{
+					name: 'configuration',
+					route: `/+${this.$route.guild}/configuration`,
+					icon: 'fa-wrench',
+					textCase: 'capitalize'
 				}
-			},
-			{
-				name: "rules",
-				route: {
-					name: 'guild-rules-view',
-					params: { sort: 'active' }
-				}
-			},
-			{
-				name: "audit log",
-				route: {
-					name: 'guild-settings-view'
-				}
-			},
+				]
+			}
 			]
 		};
 	},

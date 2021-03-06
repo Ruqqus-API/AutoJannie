@@ -42,7 +42,7 @@ const routes = [
     { path: '/+:guild/rules/:sort?', name: 'guild-rules-view', component: GuildRulesView }
     ]
   },
-  { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
+  { path: '/+:guild/configuration', name: 'guild-settings-view', component: GuildSettingsView }
     //{ path: '/+:guild/settings', component: GuildSettingsView, name: 'guild-settings-view', props: true,
     ]
   }

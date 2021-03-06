@@ -1,10 +1,10 @@
   <template>
     <nav class="fixed w-full bg-white border-b dark:bg-gray-800 z-50">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="px-4">
             <div class="flex items-center justify-between h-12">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <router-link to="/" class="font-medium text-xl text-purple-500 tracking-wide">
+                        <router-link to="/" class="font-medium text-xl text-orange-500 tracking-wide">
                             <i class="fas fa-hat-wizard fa-sm pr-2"></i>GuildWizard
                         </router-link>
                     </div>
@@ -13,19 +13,19 @@
                     </div>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-4 flex items-center space-x-2 md:ml-6">
+                    <div class="ml-4 flex items-center space-x-1 md:ml-6">
 
-                        <router-link to="/moderation" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
+                        <router-link to="/moderation" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
                             <span class="sr-only">View guilds</span>
                             <i class="fas fa-bell"></i>
                         </router-link>
 
-                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
+                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
                             <span class="sr-only">View account settings</span>
                             <i class="fas fa-crown"></i>
                         </router-link>
 
-                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
+                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
                             <span class="sr-only">View tips</span>
                             <i class="fas fa-question-circle"></i>
                         </router-link>
@@ -49,7 +49,7 @@
                     >
                     <button
                     id="user-menu"
-                    class="flex items-center text-sm text-gray-900 font-bold bg-white rounded hover:bg-gray-100 focus:outline-none focus:shadow-solid focus:outline-none focus:shadow-solid"
+                    class="flex items-center text-sm text-gray-900 hover:text-blue-500 hover:bg-blue-50 rounded focus:outline-none focus:shadow-solid focus:outline-none focus:shadow-solid"
                     :class="{ 'bg-gray-100': isShown }"
                     aria-label="User menu"
                     aria-haspopup="true"
