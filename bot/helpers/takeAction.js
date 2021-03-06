@@ -2,6 +2,7 @@ const { calculatePassedTime } = require('../helpers/datemath')
 
 module.exports = {
 	async execute({ client, faunaClient, redisClient }, submission, config) {
+
 		const s = submission
 
 		var author = await client.users.fetch(s.author.username)
@@ -57,7 +58,7 @@ module.exports = {
 				// TODO
 			},
 
-			is_guildmaster: () => config.data.guildmasters.some(gm => gm.username === author.username),
+			is_guildmaster: ({ r, c, s, check }) => config.data.guildmasters.some(gm => gm.username === author.username) == Boolean(r[c][check]),
 
 			comment_rep: ({ r, c, s, check }) => user_rep_calc(r[c][check], author.stats.comment_rep),
 
@@ -192,13 +193,35 @@ module.exports = {
 				return str == check
 			}
 		}
-		
+
 		function includes(check, str) {
 			if (Array.isArray(check)) {
 				return check.some(e => str.includes(e))
 			} else {
 				return str.includes(check)
 			}
+		}
+
+		function replace_placeholders(m) {
+
+			const replacements = {
+				'{{author}}': s.author.username,
+				'{{body}}': t == 'comment' ? s.content.text : s.content.body.text,
+				'{{permalink}}': s.link,
+				'{{guild}}': `+${s.guild.name}`,
+				'{{kind}}': t == 'comment' ? t : `${t} submission`,
+				'{{title}}': s.content.title,
+				'{{domain}}': s.content.domain,
+				'{{url}}': s.full_link
+			}
+			for (r in replacements) {
+				console.log(r)
+				if (m.indexOf(r) != -1) {
+					m = m.replace(r, replacements[r])
+				}
+			}
+
+			return m
 		}
 	}
 }
