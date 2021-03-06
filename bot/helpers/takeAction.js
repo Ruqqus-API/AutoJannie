@@ -1,4 +1,5 @@
 const { calculatePassedTime } = require('../helpers/datemath')
+const psl = require('psl')
 
 module.exports = {
 	async execute({ client, faunaClient, redisClient }, submission, config) {
@@ -110,9 +111,9 @@ module.exports = {
 			message: ({ c, save, r }) => {
 				if (!all_executed(save, not_needed)) return false
 				if (t == 'comment') {
-					s.reply(r[c])
+					s.reply(replace_placeholders(r[c]))
 				} else {
-					s.comment(r[c])
+					s.comment(replace_placeholders(r[c]))
 				}
 				return true
 			},
@@ -135,7 +136,18 @@ module.exports = {
 			'text-includes': ({ c, r, s }) => {
 				if (!is_submission(t, submission_type)) return false
 				return includes(r[c], s.content.body.text)
-			}
+			},
+
+			domain: ({ c, r, s }) => {
+				if (t != 'link') return false
+				const d = psl.parse(s.domain)
+				if (Array.isArray(r[c])) {
+					return check.some(e => e == d.domain)
+				} else {
+					return r[c] == d.domain
+				}
+			},
+			'~domain': (d) => !domain(d)
 		}
 
 
