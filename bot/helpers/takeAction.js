@@ -98,7 +98,7 @@ module.exports = {
 				for (check in r[c]) {
 					val.push(author_handler[check]({ s, t, c, save, check, r }))
 				}
-				return val.every(v => v === true)
+				return val.every(v => v == true)
 			},
 
 			action: ({ c, save, r }) => {
@@ -188,15 +188,15 @@ module.exports = {
 
 		function user_rep_calc(rep, compare) {
 			let reg = /([<>]) (\d+)/g
-
+		
 			let matches = reg.exec(rep);
-
+		
 			if (matches[1] == '<') {
-				return (matches[2] < compare)
-
+				return (compare < parseInt(matches[2]))
+		
 			} else if (matches[1] == '>') {
-				return (matches[2] >= compare)
-
+				return (compare >= parseInt(matches[2]))
+		
 			} else {
 				return false
 			}
