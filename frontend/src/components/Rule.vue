@@ -3,16 +3,16 @@
 		<div class="flex flex-shrink-0 items-center justify-center w-9">
 			<t-checkbox/>
 		</div>
-		<router-link to="/" class="block w-full bg-white border rounded px-4 py-3 hover:border-gray-300">
+		<router-link to="/" class="block w-full bg-white border rounded p-4 hover:border-gray-300">
 			<div class="flex flex-grow items-center justify-between">
 				<div class="flex flex-shrink-0 items-center space-x-2 pr-4 xl:pr-0">
 					<div class="flex items-center text-sm bg-gray-100 shadow-inner rounded-sm text-gray-500 hover:text-gray-800">
-						<div class="flex items-center justify-center w-9 h-9">
+						<div class="flex items-center justify-center w-10 h-10">
 							<i class="fas fa-fw text-center" :class="icon"></i>
 						</div>
 					</div>
 					<i class="fas fa-arrow-right fa-fw text-2xs text-gray-500"></i>
-					<div class="flex items-center justify-center px-2 w-9 h-9 text-lg bg-gray-100 shadow-inner font-bold rounded text-red-500 hover:text-gray-800">
+					<div class="flex items-center justify-center px-2 w-10 h-10 text-lg bg-gray-100 shadow-inner font-bold rounded text-red-500 hover:text-gray-800">
 						<i class="fas fa-door-open"></i>
 					</div>
 				</div>
