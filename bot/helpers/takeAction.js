@@ -51,24 +51,24 @@ module.exports = {
 
 		const author_handler = {
 
-			or: ({ c, save, r, s }) => ororand(check, author_handler, { c, save, r, s }).some(v => v === true),
+			or: ({ save, r }) => ororand(r, author_handler, { save }).some(v => v === true),
 
-			and: ({ c, save, r, s }) => ororand(check, author_handler, { c, save, r, s }).push(res.every(v => v === true)),
+			and: ({ save, r }) => ororand(r, author_handler, { c, save, r, s }).push(res.every(v => v === true)),
 
 			is_contributor: () => {
 				// TODO
 			},
 
-			is_guildmaster: ({ r, c, s, check }) => config.data.guildmasters.some(gm => gm.username === author.username) == Boolean(r[c][check]),
+			is_guildmaster: ({ r }) => config.data.guildmasters.some(gm => gm.username === author.username) == Boolean(r),
 
-			comment_rep: ({ r, c, s, check }) => user_rep_calc(r[c][check], author.stats.comment_rep),
+			comment_rep: ({ r }) => user_rep_calc(r, author.stats.comment_rep),
 
-			post_rep: ({ r, c, s, check }) => user_rep_calc(r[c][check], author.stats.post_rep),
+			post_rep: ({ r }) => user_rep_calc(r, author.stats.post_rep),
 
-			rep: ({ r, c, s, check }) => user_rep_calc(r[c][check], author.stats.post_rep + author.stats.comment_rep),
+			rep: ({ r }) => user_rep_calc(r, author.stats.post_rep + author.stats.comment_rep),
 
-			account_age: ({ r, c, check }) => {
-				let v = r[c][check]
+			account_age: ({ r }) => {
+				let v = r
 				let reg = /([<>]) (\d+) (second|minute|hour|day|week|month|year)/g
 
 				let matches = reg.exec(v);
@@ -91,60 +91,60 @@ module.exports = {
 
 		const handlers = {
 
-			or: ({ c, save, r, s }) => ororand(c, handlers, { c, save, r, s }).some(v => v === true),
+			or: ({ save, r }) => ororand(r, handlers, { save }).some(v => v === true),
 
-			and: ({ c, save, r, s }) => ororand(c, handlers, { c, save, r, s }).every(v => v === true),
+			and: ({ save, r }) => ororand(r, handlers, { save }).every(v => v === true),
 
-			author: ({ c, save, r }) => {
+			author: ({ save, r }) => {
 				let val = []
-				for (check in r[c]) {
-					val.push(author_handler[check]({ s, t, c, save, check, r }))
+				for (c in r) {
+					val.push(author_handler[c]({ save, r: r[c] }))
 				}
 				return val.every(v => v == true)
 			},
 
-			action: ({ c, save, r }) => {
+			action: ({ save, r }) => {
 				if (!all_executed(save, not_needed)) return false
-				return actions[r[c]]()
+				return actions[r]()
 			},
 
-			message: ({ c, save, r }) => {
+			message: ({ save, r }) => {
 				if (!all_executed(save, not_needed)) return false
 				if (t == 'comment') {
-					s.reply(replace_placeholders(r[c]))
+					s.reply(replace_placeholders(r))
 				} else {
-					s.comment(replace_placeholders(r[c]))
+					s.comment(replace_placeholders(r))
 				}
 				return true
 			},
 
-			title: ({ c, r, s }) => {
+			title: ({ r }) => {
 				if (!is_submission(t, submission_type)) return false
-				return exact(r[c], s.content.title)
+				return exact(r, s.content.title)
 			},
 
-			'title-includes': ({ c, r, s }) => {
+			'title-includes': ({ r }) => {
 				if (!is_submission(t, submission_type)) return false
-				return includes(r[c], s.content.title)
+				return includes(r, s.content.title)
 			},
 
-			text: ({ c, r, s }) => {
+			text: ({ r }) => {
 				if (!is_submission(t, submission_type)) return false
-				return exact(r[c], s.content.body.text)
+				return exact(r, s.content.body.text)
 			},
 
-			'text-includes': ({ c, r, s }) => {
+			'text-includes': ({ r }) => {
 				if (!is_submission(t, submission_type)) return false
-				return includes(r[c], s.content.body.text)
+				return includes(r, s.content.body.text)
 			},
 
-			domain: ({ c, r, s }) => {
+			domain: ({ r }) => {
 				if (t != 'link') return false
 				const d = psl.parse(s.domain)
-				if (Array.isArray(r[c])) {
-					return check.some(e => e == d.domain)
+				if (Array.isArray(r)) {
+					return r.some(e => e == d.domain)
 				} else {
-					return r[c] == d.domain
+					return r == d.domain
 				}
 			},
 			'~domain': (d) => !domain(d)
@@ -156,19 +156,19 @@ module.exports = {
 				var save = {}
 				for (c in r) {
 					if (!handlers.hasOwnProperty(c)) continue
-					save[c] = handlers[c]({ c, save, r, s })
+					save[c] = handlers[c]({ r: r[c], save })
 				}
 				console.log(save)
 			}
 
 		})
 
-		function ororand(obj, handler, pass) {
+		function ororand(r, handler, { save }) {
 			let val = []
 
-			for (conf in obj) {
-				const res = handler[conf](pass)
-				re.push(res)
+			for (c in r) {
+				const res = handler[c]({ r: r[c], save })
+				val.push(res)
 			}
 			return val
 		}
