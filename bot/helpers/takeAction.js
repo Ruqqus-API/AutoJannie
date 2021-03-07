@@ -227,7 +227,6 @@ module.exports = {
 				'{{url}}': s.full_link
 			}
 			for (r in replacements) {
-				console.log(r)
 				if (m.indexOf(r) != -1) {
 					m = m.replace(r, replacements[r])
 				}
