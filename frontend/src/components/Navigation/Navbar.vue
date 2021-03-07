@@ -13,22 +13,17 @@
                     </div>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-4 flex items-center space-x-1 md:ml-6">
+                    <div class="ml-4 flex items-center space-x-4 md:ml-6">
 
-                        <router-link to="/moderation" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
-                            <span class="sr-only">View guilds</span>
-                            <i class="fas fa-bell"></i>
+                        <router-link v-slot="{ href, navigate, isExactActive }" to="/">
+                            <a :href="href" @click="navigate" :class="isExactActive ? 'text-blue-500' : 'text-gray-500 hover:text-blue-500'">
+                                My Guilds
+                            </a>
                         </router-link>
 
-                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
-                            <span class="sr-only">View account settings</span>
-                            <i class="fas fa-crown"></i>
-                        </router-link>
+                        <a href="/" target="_blank" class="text-gray-500 hover:text-blue-500">Docs</a>
 
-                        <router-link to="/messages" tag="button" class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 text-sm font-bold text-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white rounded">
-                            <span class="sr-only">View tips</span>
-                            <i class="fas fa-question-circle"></i>
-                        </router-link>
+                        <a href="/" target="_blank" class="text-gray-500 hover:text-blue-500">Discord</a>
 
                         <!-- Profile dropdown -->
                         <t-dropdown
@@ -49,7 +44,7 @@
                     >
                     <button
                     id="user-menu"
-                    class="flex items-center text-sm text-gray-900 hover:text-blue-500 hover:bg-blue-50 rounded focus:outline-none focus:shadow-solid focus:outline-none focus:shadow-solid"
+                    class="flex items-center text-gray-900 hover:text-blue-500 hover:bg-blue-50 rounded focus:outline-none focus:shadow-solid focus:outline-none focus:shadow-solid"
                     :class="{ 'bg-gray-100': isShown }"
                     aria-label="User menu"
                     aria-haspopup="true"
@@ -59,7 +54,7 @@
                     @keydown="keydownHandler"
                     >
                     <img class="w-9 h-9 object-cover rounded mr-2" src="https://i.ibb.co/BGq4NpT/Mydiscordpfp-105597.jpg" alt="user avatar"/>
-                    <div class="text-left mr-3">
+                    <div class="text-left mr-2">
                         username
                     </div>
                 </button>

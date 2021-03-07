@@ -14,10 +14,10 @@
                 Learn more about automated guild rules. <a href="#" class="text-primary hover:underline">Read the docs</a>.
               </p>
             </div>
-            <t-button variant="primary">Create new rule</t-button>
+            <t-button v-if="rules.length > 0" variant="primary" :to="`/+${$route.params.guild}/rules/edit`">Create new rule</t-button>
           </div>
           <div class="bg-white border rounded shadow-xs">
-            <div class="flex flex-shrink-0 items-end space-x-6 w-full h-full border-b px-4 pt-4">
+            <div v-if="rules.length > 0" class="flex flex-shrink-0 items-end space-x-6 w-full h-full border-b px-4 pt-4">
               <!-- Tabs -->
               <div class="flex flex-shrink-0 items-end space-x-6 w-full h-full">
                 <router-link v-for="tab in tabs" :key="tab.name" v-slot="{ href, navigate, isExactActive }" :to="tab.route">
@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="p-4 space-y-3">
-              <div class="flex items-center mb-4">
+              <div v-if="rules.length > 0" class="flex items-center mb-4">
                 <div class="flex items-center space-x-2">
                   <div class="flex items-center bg-white border rounded h-9">
                     <div class="flex items-center justify-center w-9">
@@ -71,7 +71,16 @@
                   <t-input placeholder="Filter rules" variant="primary" :fixedClasses="'block w-full pl-9 pr-3 py-2 transition duration-100 ease-in-out border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed'"/>
                 </div>
               </div>
-              <Rule v-for="rule in rules" :key="rule.id" :rule="rule"/>
+              <div v-if="rules.length > 0" class="space-y-2">
+                <Rule v-for="rule in rules" :key="rule.id" :rule="rule"/>
+              </div>
+              <div v-else class="p-4">
+                <div class="flex flex-col items-center justify-center p-12 rounded border-2 border-dashed">
+                  <i class="fas fa-hat-wizard text-gray-300 text-5xl mb-2"></i>
+                  <p class="font-medium text-gray-500 mb-5">{{ $route.params.guild }} has no rules configured.</p>
+                  <t-button variant="primary" :to="`/+${$route.params.guild}/rules/edit`">Make a rule</t-button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
