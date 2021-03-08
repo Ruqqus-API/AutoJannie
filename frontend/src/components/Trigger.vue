@@ -1,10 +1,10 @@
 <template>
 	<div class="space-y-4 shadow-sm">
 		<div class="bg-white">
-			<div v-if="Object.keys(picked).length" class="transition-all duration-100 px-5 py-4 border text-gray-900 bg-white" :class="active ? 'rounded-t' : 'opacity-60'">
+			<div v-if="Object.keys(picked).length" class="px-5 py-4 border text-gray-900 bg-white" :class="active ? 'rounded-t' : 'opacity-60'">
 				<div class="flex items-center space-x-3">
 					<div class="flex items-center justify-center px-2 w-14 h-14 bg-gray-100 text-gray-500 text-xl font-bold rounded-md shadow-inner">
-						<i class="fas" :class="picked.icon"></i>
+						<i class="fas fa-fw" :class="picked.icon"></i>
 					</div>
 					<div>
 						<div class="text-xl font-medium">{{ picked.name }}</div>
@@ -12,7 +12,7 @@
 					</div>
 				</div>
 			</div>
-			<div v-else class="px-5 py-4 border" :class="active ? 'text-white bg-purple-500 border-transparent rounded-t' : 'text-gray-900 bg-white opacity-60 rounded'">
+			<div v-else class="px-5 py-4 border" :class="active ? 'text-white bg-blue-500 border-transparent rounded-t' : 'text-gray-900 bg-white opacity-60 rounded'">
 				<div class="flex items-center space-x-3">
 					<div class="flex items-center justify-center px-2 w-14 h-14 border-2 border-dashed border-white border-opacity-40 text-xl font-bold rounded-md text-opacity-90" :class="{'text-white':active}">
 						<i class="fas fa-bolt"></i>
@@ -45,19 +45,14 @@
 						</label>
 					</form>
 				</div>
-				<div class="mt-5 flex justify-end p-5 border-t">
-					<t-button variant="purple500" :disabled="!picked">
+				<div class="hidden mt-5 flex justify-end p-5 border-t">
+					<t-button variant="primary" :disabled="!Object.keys(picked).length">
 						Next step
 						<i class="fas fa-arrow-right fa-sm pl-2"></i>
 					</t-button>
 				</div>
 			</div>
 		</div>
-<!-- 	<div class="flex items-center justify-center h-20">
-		<button class="flex items-center justify-center w-6 h-6 rounded-full text-gray-400 bg-gray-200 border hover:text-white hover:bg-purple-500 shadow-sm">
-			<i class="fas fa-plus fa-sm"></i>
-		</button>
-	</div> -->
 </div>
 </template>
 

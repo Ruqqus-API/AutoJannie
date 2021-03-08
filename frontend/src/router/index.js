@@ -14,7 +14,11 @@ import GuildOverviewView from "@/views/Guild/Overview.vue";
 import GuildRulesView from "@/views/Guild/Rules.vue";
 import GuildSettingsView from "@/views/Guild/Settings.vue";
 
-import RuleEditorView from "@/views/Guild/RuleEditor.vue";
+import RuleEditorView from "@/views/Guild/RuleEditor/Editor.vue";
+import RuleEditorFirstStep from "@/views/Guild/RuleEditor/FirstStep.vue";
+import RuleEditorSecondStep from "@/views/Guild/RuleEditor/SecondStep.vue";
+import RuleEditorThirdStep from "@/views/Guild/RuleEditor/ThirdStep.vue";
+import RuleEditorFourthStep from "@/views/Guild/RuleEditor/FourthStep.vue";
 
 // User
 
@@ -29,7 +33,7 @@ const routes = [
   // { path: '/+:guild', alias: '/+:guild/moderation', name: 'guild-moderation-view', component: GuildModerationView },
   // { path: '/+:guild/settings', name: 'guild-settings-view', component: GuildSettingsView }
 
-  { path: '/+:guild/rules/create', name: 'create-rule-view', component: RuleEditorView },
+  //{ path: '/+:guild/rules/create', name: 'create-rule-view', component: RuleEditorView },
   { path: '/+:guild/rules/edit', name: 'edit-rule-view', component: RuleEditorView },
 
   {
@@ -44,6 +48,16 @@ const routes = [
   },
   { path: '/+:guild/configuration', name: 'guild-settings-view', component: GuildSettingsView }
     //{ path: '/+:guild/settings', component: GuildSettingsView, name: 'guild-settings-view', props: true,
+    ]
+  },
+
+  {
+    path: '/+:guild/rules/create', alias: '/+:guild/rules/edit', component: RuleEditorView,
+    children: [
+    { path: '/+:guild/rules/create/trigger', alias: '/+:guild/rules/create/1', component: RuleEditorFirstStep, name: 'rule-editor-first-step', props: { currentStep: 1 } },
+    { path: '/+:guild/rules/create/filters', alias: '/+:guild/rules/create/2', component: RuleEditorSecondStep, name: 'rule-editor-second-step', props: { currentStep: 2 } },
+    { path: '/+:guild/rules/create/actions', alias: '/+:guild/rules/create/3', component: RuleEditorThirdStep, name: 'rule-editor-third-step', props: { currentStep: 3 } },
+    { path: '/+:guild/rules/create/confirm', alias: '/+:guild/rules/create/4', component: RuleEditorFourthStep, name: 'rule-editor-fourth-step', props: { currentStep: 4 } }
     ]
   }
 

@@ -20,7 +20,7 @@
 						</div>
 						<div class="p-4 space-y-4">
 							<div class="space-y-2">
-								<div v-for="guild in guilds" :key="guild.name" class="flex items-center justify-between w-full bg-white border rounded p-4 hover:border-gray-300">
+								<router-link v-for="guild in guilds" :key="guild.name" :to="`/+${guild.name}`" class="flex items-center justify-between w-full bg-white border rounded p-4 hover:border-gray-300">
 									<div class="flex items-center">
 										<img :src="guild.profile_url" class="w-10 h-10 rounded" alt="guild image"/>
 										<div class="ml-3">
@@ -30,10 +30,10 @@
 											</p>
 										</div>
 									</div>
-									<t-button :variant="guild.connected ? 'gray200' : 'primary'" class="w-28 capitalize">
+									<t-button :variant="guild.connected ? 'gray200' : 'primary'" class="w-28 capitalize" @click.prevent>
 										{{ guild.connected === true ? 'disconnect' : 'connect' }}
 									</t-button>
-								</div>
+								</router-link>
 							</div>
 							<div class="flex items-center text-gray-500">
 								<i class="fas fa-info-circle text-lg text-blue-400 pr-2"></i>
