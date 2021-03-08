@@ -13,6 +13,7 @@ module.exports = {
 		if (post.content.title == configJson.config_title) {
 			log("NEW CONFIG POST")
 			require('../parseConfig').execute(passOn, post)
+			return
 		}
 
 		try {

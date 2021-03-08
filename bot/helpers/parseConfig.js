@@ -38,6 +38,23 @@ Please consult with \`GuildWizard\` [documentation](https://github.com/Ruqqus-AP
 			return
 		}
 
+		const valid_actions = ['action', 'message', 'gm_notification']
+
+		let rules_vue = []
+
+		rules.forEach(r => {
+			let conditions = {}
+			let actions = {}
+			for (c in r) {
+				if (valid_actions.includes(c)) {
+					actions[c] = r[c]
+				} else {
+					conditions[c] = r[c]
+				}
+			}
+			rules_vue.push({ conditions, actions})
+		})
+
 
 		const config = {
 			name: post.guild.name,
@@ -45,7 +62,8 @@ Please consult with \`GuildWizard\` [documentation](https://github.com/Ruqqus-AP
 			guildmasters: guildmasters,
 			guild_id: guild.id,
 			rules_yaml: postText,
-			rules: rules
+			rules: rules,
+			rules_vue: rules_vue
 		}
 
 		redisClient.set(`${post.guild.name}_config`, JSON.stringify(config))
