@@ -17,7 +17,7 @@
 
                         <router-link v-slot="{ href, navigate, isExactActive }" to="/">
                             <a :href="href" @click="navigate" :class="isExactActive ? 'text-blue-500' : 'text-gray-500 hover:text-blue-500'">
-                                My Guilds
+                                Dashboard
                             </a>
                         </router-link>
 
@@ -61,23 +61,26 @@
             </div>
             <!-- Menu -->
             <div slot-scope="{ hide, blurHandler }">
-                <div class="text-2xs font-bold uppercase tracking-wide text-gray-500 px-4 py-2">Account</div>
-    <!-- <router-link to="/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
-      <i class="fas fa-columns text-center fa-fw mr-2"></i><span>Dashboard</span>
-  </router-link> -->
-  <router-link to="/+minecraft" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
-    <i class="fas fa-crown fa-sm fa-fw mr-2"></i><span>Guilds</span>
-</router-link>
-<router-link to="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
-    <i class="fas fa-cog fa-sm fa-fw mr-2"></i><span>My Account</span>
-</router-link>
-<hr class="my-2">
-<router-link to="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100 hover:text-red-700" role="menuitem" @blur="blurHandler">
-    <i class="fas fa-door-open fa-sm fa-fw mr-2"></i><span>Sign Out</span>
-</router-link>
-</div>
-</t-dropdown>
-</div>
+                <div class="text-2xs font-bold uppercase tracking-wide text-gray-500 px-4 py-2">
+                    Account
+                </div>
+                <router-link to="/+minecraft" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
+                    <i class="fas fa-cog fa-sm fa-fw mr-2"></i><span>My Account</span>
+                </router-link>
+                <hr class="my-2">
+                <router-link to="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
+                    <i class="fas fa-book fa-sm fa-fw mr-2"></i><span>Docs</span>
+                </router-link>
+                <router-link to="/settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @blur="hide">
+                    <i class="fab fa-discord fa-sm fa-fw mr-2"></i><span>Discord</span>
+                </router-link>
+                <hr class="my-2">
+                <router-link to="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100 hover:text-red-700" role="menuitem" @blur="blurHandler">
+                    <i class="fas fa-door-open fa-sm fa-fw mr-2"></i><span>Sign Out</span>
+                </router-link>
+            </div>
+        </t-dropdown>
+    </div>
 </div>
 <div class="-mr-2 flex md:hidden">
     <!-- Mobile menu button -->

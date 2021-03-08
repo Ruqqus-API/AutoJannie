@@ -17,34 +17,36 @@
 			</div>
 
 			<div class="space-y-4 relative p-4 w-full h-full z-10">
-				<div class="flex space-x-4 z-10">
-					<div class="w-full bg-white">
-						<div class="shadow-xs rounded">
-							<div class="flex items-center space-x-2 px-2 py-1.5 bg-gray-100 border rounded-t">
-								<div class="flex items-center justify-center px-2 w-5 h-5 bg-purple-500 font-bold rounded text-white hover:text-gray-800">
-									<i class="fas fa-bolt fa-fw text-3xs"></i>
-								</div>
-								<div class="text-gray-500 text-xs font-semibold uppercase tracking-wide leading-tight">
-									1. Trigger
-								</div>
-							</div>
-							<div class="space-y-2 p-3 bg-white border border-t-0 rounded-b">
-								<div class="flex items-center space-x-2">
-									<div class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 shadow-inner font-bold rounded text-gray-500 hover:text-gray-800">
-										<i class="fas fa-link fa-fw fa-sm"></i>
+				<router-link class="block bg-white text-gray-900" to="./1">
+					<div class="flex space-x-4 z-10 transition duration-100" :class="{ 'hover:opacity-100 opacity-40':!isFirst }">
+						<div class="w-full bg-white">
+							<div class="shadow-xs rounded">
+								<div class="flex items-center space-x-2 px-2 py-1.5 bg-gray-100 border rounded-t">
+									<div class="flex items-center justify-center px-2 w-5 h-5 font-bold rounded text-white hover:text-gray-800" :class="isFirst ? 'bg-blue-500' : 'bg-gray-400'">
+										<i class="fas fa-bolt fa-fw text-3xs"></i>
 									</div>
-									<div class="capitalize font-medium">Link post</div>
+									<div class="text-gray-500 text-xs font-semibold uppercase tracking-wide leading-tight">
+										1. Trigger
+									</div>
+								</div>
+								<div class="space-y-2 p-3 bg-white border border-t-0 rounded-b">
+									<div class="flex items-center space-x-2">
+										<div class="flex items-center justify-center px-2 w-9 h-9 bg-gray-100 shadow-inner font-bold rounded text-gray-500 hover:text-gray-800">
+											<i class="fas fa-link fa-fw fa-sm"></i>
+										</div>
+										<div class="capitalize font-medium">Link post</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="bg-white">
-					<div class="flex space-x-4 z-10 opacity-40">
+				</router-link>
+				<router-link class="block bg-white text-gray-900" to="./2">
+					<div class="flex space-x-4 z-10 transition duration-100" :class="{ 'hover:opacity-100 opacity-40':!isSecond }">
 						<div class="w-full bg-white">
 							<div class="shadow-xs rounded">
 								<div class="flex items-center space-x-2 px-2 py-1.5 bg-gray-100 border rounded-t">
-									<div class="flex items-center justify-center px-2 w-5 h-5 bg-gray-400 font-bold rounded text-white hover:text-gray-800">
+									<div class="flex items-center justify-center px-2 w-5 h-5 font-bold rounded text-white hover:text-gray-800" :class="isSecond ? 'bg-blue-500' : 'bg-gray-400'">
 										<i class="fas fa-filter fa-fw text-3xs"></i>
 									</div>
 									<div class="text-gray-500 text-xs font-semibold uppercase tracking-wide leading-tight">
@@ -62,7 +64,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</router-link>
 				<div class="bg-white">
 					<div class="flex flex-col items-center justify-center z-10 opacity-40">
 						<button class="flex items-center justify-center rounded px-3 py-1.5 text-sm border font-medium text-gray-400 bg-gray-50 hover:text-gray-500 hover:bg-gray-100 transition duration-100 z-10">
@@ -108,17 +110,10 @@
 
 		<!-- Content section -->
 		<vue-scroll>
-			<div>
-				<div class="grid grid-cols-12 p-8">
-					<div class="col-start-2 col-end-12">
-						<div class="space-y-12">
-							<Trigger :active="true"/>
-							<Condition class="hidden"/>
-							<Action class="hidden"/>
-						</div>
-					</div>
-				</div>
-			</div>
+			<keep-alive>
+				<router-view>
+				</router-view>
+			</keep-alive>
 		</vue-scroll>
 
 	</div>
@@ -126,21 +121,16 @@
 
 <script>
 // Import Components
-//import { mapState } from 'vuex';
-
-import Trigger from "@/components/Trigger.vue"
-import Condition from "@/components/Filter.vue"
-import Action from "@/components/Action.vue"
 
 export default {
 	name: "GuildView",
 	components: {
-		Trigger,
-		Condition,
-		Action
 	},
 	data() {
 		return {
+			config: [],
+			errored: false,
+			loading: true,
 			menu: [
 			{
 				mobileDivider: true,
@@ -169,7 +159,30 @@ export default {
 		};
 	},
 	computed: {
-		//...mapState("persist", ["v"]),
+		isFirst() {
+			return this.$route.name === 'rule-editor-first-step'
+		},
+		isSecond() {
+			return this.$route.name === 'rule-editor-second-step'
+		},
+		isThird() {
+			return this.$route.name === 'rule-editor-third-step'
+		},
+		isLast() {
+			return this.$route.name === 'rule-editor-fourth-step'
+		},
+	},
+	created() {
+		axios
+		.get('https://gist.githubusercontent.com/Panjkrc/68bff61c8e14b893824d71d6bb92a912/raw/afaae9c64fef29963a3cb0ca78f12c0d5bda56a9/config.json')
+		.then(response => {
+			this.config = response.data.data
+		})
+		.catch(error => {
+			console.log(error)
+			this.errored = true
+		})
+		.finally(() => this.loading = false)
 	}
 }
 </script>
