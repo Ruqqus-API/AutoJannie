@@ -17,12 +17,27 @@ module.exports = {
 			return
 		}
 
-		var postText = post.content.body.text
+		let postText = post.content.body.text
 
 		if (postText.startsWith("```") && postText.endsWith("```")) {
 			postText = postText.slice(3, -3)
 		}
-		const rules = yaml.loadAll(postText);
+		let rules = {}
+		try {
+			rules = yaml.loadAll(postText);
+		} catch (error) {
+			post.comment(`
+Wizard config could not be saved in the database. Invalid syntax: 
+\`\`\`  
+
+${error}  
+
+\`\`\`  
+
+Please consult with \`GuildWizard\` [documentation](https://github.com/Ruqqus-API/AutoJannie) and make sure to [validate](http://www.yamllint.com) your config file`)
+			return
+		}
+
 
 		const config = {
 			name: post.guild.name,
