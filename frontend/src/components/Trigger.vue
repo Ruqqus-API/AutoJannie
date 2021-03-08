@@ -1,9 +1,20 @@
 <template>
 	<div class="space-y-4 shadow-sm">
 		<div class="bg-white">
-			<div class="px-5 py-4" :class="active ? 'text-white bg-purple-500 rounded-t' : 'border text-gray-900 bg-white opacity-60 rounded'">
+			<div v-if="Object.keys(picked).length" class="transition-all duration-100 px-5 py-4 border text-gray-900 bg-white" :class="active ? 'rounded-t' : 'opacity-60'">
 				<div class="flex items-center space-x-3">
-					<div class="flex items-center justify-center px-2 w-14 h-14 text-xl font-bold rounded-md border-2 border-white border-dashed border-opacity-40 text-opacity-90" :class="{'text-white':active}">
+					<div class="flex items-center justify-center px-2 w-14 h-14 bg-gray-100 text-gray-500 text-xl font-bold rounded-md shadow-inner">
+						<i class="fas" :class="picked.icon"></i>
+					</div>
+					<div>
+						<div class="text-xl font-medium">{{ picked.name }}</div>
+						<p class="text-opacity-80 text-sm">{{ picked.description }}</p>
+					</div>
+				</div>
+			</div>
+			<div v-else class="px-5 py-4 border" :class="active ? 'text-white bg-purple-500 border-transparent rounded-t' : 'text-gray-900 bg-white opacity-60 rounded'">
+				<div class="flex items-center space-x-3">
+					<div class="flex items-center justify-center px-2 w-14 h-14 border-2 border-dashed border-white border-opacity-40 text-xl font-bold rounded-md text-opacity-90" :class="{'text-white':active}">
 						<i class="fas fa-bolt"></i>
 					</div>
 					<div>
@@ -16,23 +27,26 @@
 
 				<div class="p-5">
 					<label class="label">Trigger</label>
-					<form class="flex flex-col w-100 space-y-4">
-						<div v-for="(trigger, index) in triggers" :key="index" class="flex flex-row content-center flex-grow p-6 border border-gray-200 rounded hover:bg-gray-100">
-							<t-radio name="options" :checked="trigger.checked" @click="anyChecked = true" />
-							<span class="flex-shrink-0 ml-2">
-								<i class="fas fa-fw text-3xl" :class="trigger.icon"></i>
-							</span>
-							<div class="flex flex-col ml-2">
-								<strong>
-									{{ trigger.name }}
-								</strong>
-								<span class="text-sm leading-tight text-gray-700">{{ trigger.description }}</span>
+					<form class="flex flex-col w-100 space-y-2">
+						<label v-for="(trigger, index) in triggers" :key="index" class="flex flex-row content-center flex-grow border border-gray-200 rounded overflow-hidden" :class="trigger.name === picked.name ? 'border-blue-500' : 'hover:border-gray-300'">
+							<div class="flex items-center justify-center p-4" :class="trigger.name === picked.name ? 'bg-blue-50' : 'hover:bg-gray-50'">
+								<t-radio name="options" :value="trigger" v-model="picked"/>
 							</div>
-						</div>
+							<div class="flex p-4">
+								<div class="ml-3">
+									<strong :class="{ 'text-blue-500':trigger.name === picked.name }">
+										{{ trigger.name }}
+									</strong>
+									<p class="text-sm leading-tight text-gray-500">
+										{{ trigger.description }}
+									</p>
+								</div>
+							</div>
+						</label>
 					</form>
 				</div>
 				<div class="mt-5 flex justify-end p-5 border-t">
-					<t-button variant="purple500" :disabled="!anyChecked">
+					<t-button variant="purple500" :disabled="!picked">
 						Next step
 						<i class="fas fa-arrow-right fa-sm pl-2"></i>
 					</t-button>
@@ -59,6 +73,7 @@ export default {
 	},
 	data() {
 		return {
+			picked: {},
 			triggers: [
 			{
 				id: 1,
@@ -88,5 +103,13 @@ export default {
 			anyChecked: false,
 		}
 	},
+	// watch: {
+	// 	'picked': 'pickedTrigger'
+	// },
+	// methods: {
+	// 	pickedTrigger (event) {
+	// 		this.$emit('clicked', 'someValue')
+	// 	}
+	// }
 }
 </script>

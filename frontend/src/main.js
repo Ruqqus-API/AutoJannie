@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import Vuex from '../node_modules/vuex'
 import store from "./store/index.js"
+import axios from "../node_modules/axios"
 import vuescroll from "../node_modules/vuescroll"
 import VueTailwind from "vue-tailwind"
 
@@ -16,6 +17,9 @@ import "../node_modules/tailwindcss/tailwind.css"
 import "./assets/css/style.css";
 
 import settings from './settings';
+
+// Import VueSession from 'vue-session'
+Vue.prototype.$http = axios
 
 Vue.use(VueTailwind, settings);
 

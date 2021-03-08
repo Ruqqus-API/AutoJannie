@@ -1,22 +1,24 @@
 <template>
 	<div class="flex items-center border border-transparent">
-		<div class="flex flex-shrink-0 items-center justify-center w-9">
-			<t-checkbox/>
-		</div>
+		<form>
+			<label class="flex flex-shrink-0 items-center justify-center w-9">
+				<t-checkbox/>
+			</label>
+		</form>
 		<router-link to="/" class="block w-full bg-white border rounded p-4 hover:border-gray-300">
 			<div class="flex flex-grow items-center justify-between">
 				<div class="flex flex-shrink-0 items-center space-x-2 pr-4 xl:pr-0">
-					<div class="flex items-center text-sm bg-gray-100 shadow-inner rounded-sm text-gray-500 hover:text-gray-800">
+					<div class="flex items-center text-sm bg-gray-100 shadow-inner rounded-sm text-gray-500">
 						<div class="flex items-center justify-center w-10 h-10">
-							<i class="fas fa-fw text-center" :class="icon"></i>
+							<i class="fas fa-fw" :class="triggerIcon"></i>
 						</div>
 					</div>
 					<i class="fas fa-arrow-right fa-fw text-2xs text-gray-500"></i>
-					<div class="flex items-center justify-center px-2 w-10 h-10 text-lg bg-gray-100 shadow-inner font-bold rounded text-red-500 hover:text-gray-800">
-						<i class="fas fa-door-open"></i>
+					<div class="flex items-center justify-center px-2 w-10 h-10 text-lg bg-gray-100 shadow-inner font-bold rounded">
+						<i class="fas fa-fw" :class="actionIcon"></i>
 					</div>
 				</div>
-				<div class="font-medium text-gray-600">{{ rule.name }}</div>
+				<div class="font-medium text-gray-600">{{ rule.name || 'No title given'}}</div>
 				<div class="flex items-center space-x-2 lg:space-x-4 pl-4 xl:pl-0">
 					<div class="flex items-center space-x-2">
 						<div class="text-xs font-medium uppercase tracking-wide leading-tight w-6 text-center" :class="rule.active ? 'text-green-500' : 'text-gray-500'">
@@ -67,13 +69,20 @@
 			};
 		},
 		computed: {
-			icon() {
+			triggerIcon() {
 				if (this.rule.type === 'text') {
 					return 'fa-quote-left'
 				} else if (this.rule.type === 'link') {
 					return 'fa-link'
 				} else {
 					return 'fa-comment-alt'
+				}
+			},
+			actionIcon() {
+				if (this.rule.action === 'kick') {
+					return 'fa-door-open text-red-500'
+				} else {
+					return 'fa-comment-alt text-red-500'
 				}
 			}
 		}

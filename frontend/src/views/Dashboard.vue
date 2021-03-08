@@ -15,7 +15,7 @@
 						</div>
 					</div>
 					<div class="flex flex-col w-full bg-white border rounded shadow-xs">
-						<div class="px-4 py-3 break-words">
+						<div class="px-4 pt-3 break-words">
 							<span class="text-lg font-medium">Guilds</span>
 						</div>
 						<div class="p-4 space-y-4">

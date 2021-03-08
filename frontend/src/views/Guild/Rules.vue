@@ -72,7 +72,7 @@
                 </div>
               </div>
               <div v-if="rules.length > 0" class="space-y-2">
-                <Rule v-for="rule in rules" :key="rule.id" :rule="rule"/>
+                <Rule v-for="rule in config.rules" :key="rule.id" :rule="rule"/>
               </div>
               <div v-else class="p-4">
                 <div class="flex flex-col items-center justify-center p-12 rounded border-2 border-dashed">
@@ -92,6 +92,7 @@
 
 <script>
 // import component
+import axios from 'axios'
 import Rule from "@/components/Rule.vue"
 
 export default {
@@ -101,6 +102,9 @@ export default {
   },
   data() {
     return {
+      config: [],
+      errored: false,
+      loading: true,
       rules: [
       {
         id: 1,
@@ -146,6 +150,18 @@ export default {
     }
   },
   computed: {
+  },
+  created() {
+    axios
+    .get('https://gist.githubusercontent.com/Panjkrc/68bff61c8e14b893824d71d6bb92a912/raw/afaae9c64fef29963a3cb0ca78f12c0d5bda56a9/config.json')
+    .then(response => {
+      this.config = response.data.data
+    })
+    .catch(error => {
+      console.log(error)
+      this.errored = true
+    })
+    .finally(() => this.loading = false)
   }
 }
 </script>
