@@ -229,7 +229,9 @@ module.exports = {
 			}
 			for (r in replacements) {
 				if (m.indexOf(r) != -1) {
-					m = m.replace(r, replacements[r])
+					while (m.indexOf(r) != -1) {
+						m = m.replace(r, replacements[r])
+					}
 				}
 			}
 
