@@ -184,7 +184,7 @@ export default {
 		actionIcon() {
 			if (this.config.actions.action === 'kick') {
 				return 'fa-door-open text-red-500'
-			} else if (this.config.actions.message) {
+			} else {
 				return 'fa-comment-alt text-gray-500'
 			}
 		}
