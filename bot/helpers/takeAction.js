@@ -5,7 +5,7 @@ module.exports = {
 	async execute({ client, faunaClient, redisClient }, submission, config) {
 
 		const s = submission
-		if(s.title && s.title == require('../config.json').config_title) return
+		if(s.content.title && s.content.title == require('../config.json').config_title) return
 
 		var author = await client.users.fetch(s.author.username)
 
