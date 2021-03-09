@@ -121,6 +121,7 @@
 
 <script>
 // Import Components
+import axios from 'axios'
 
 export default {
 	name: "GuildView",
@@ -171,12 +172,28 @@ export default {
 		isLast() {
 			return this.$route.name === 'rule-editor-fourth-step'
 		},
+		triggerIcon() {
+			if (this.config.conditions.type === 'text') {
+				return 'fa-quote-left'
+			} else if (this.config.conditions.type === 'link') {
+				return 'fa-link'
+			} else {
+				return 'fa-comment-alt'
+			}
+		},
+		actionIcon() {
+			if (this.config.actions.action === 'kick') {
+				return 'fa-door-open text-red-500'
+			} else if (this.config.actions.message) {
+				return 'fa-comment-alt text-gray-500'
+			}
+		}
 	},
 	created() {
 		axios
-		.get('https://gist.githubusercontent.com/Panjkrc/68bff61c8e14b893824d71d6bb92a912/raw/afaae9c64fef29963a3cb0ca78f12c0d5bda56a9/config.json')
+		.get('https://gist.githubusercontent.com/Panjkrc/998bd3ee77fb37b05e1a6f36eccc9436/raw/bcdf8069385a8a951147f338c73d14d72589a658/config.json')
 		.then(response => {
-			this.config = response.data.data
+			this.config = response.data.data.rules_vue
 		})
 		.catch(error => {
 			console.log(error)
