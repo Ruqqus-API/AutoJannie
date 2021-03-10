@@ -5,7 +5,7 @@ module.exports = {
 	async execute({ client, faunaClient, redisClient }, submission, config) {
 
 		const s = submission
-		if(s.content.title && s.content.title == require('../config.json').config_title) return
+		if (s.content.title && s.content.title == require('../config.json').config_title) return
 
 		var author = await client.users.fetch(s.author.username)
 
@@ -129,15 +129,26 @@ module.exports = {
 				return includes(r, s.content.title)
 			},
 
-			text: ({ r }) => {
+			'title-regex': ({ r }) => {
 				if (!is_submission(t, submission_type)) return false
+				return regex(r, s.content.title)
+			},
+
+			text: ({ r }) => {
+				if (t == 'comment') return exact(r, s.content.text)
 				return exact(r, s.content.body.text)
 			},
 
 			'text-includes': ({ r }) => {
-				if (!is_submission(t, submission_type)) return false
+				if (t == 'comment') return exact(r, s.content.text)
 				return includes(r, s.content.body.text)
 			},
+
+			'text-regex': ({ r }) => {
+				if (t == 'comment') return exact(r, s.content.text)
+				return regex(r, s.content.title)
+			},
+
 
 			domain: ({ r }) => {
 				if (t != 'link') return false
@@ -148,7 +159,6 @@ module.exports = {
 					return r == d.domain
 				}
 			},
-			'~domain': (d) => !domain(d)
 		}
 
 
@@ -156,8 +166,13 @@ module.exports = {
 			if (r.type == t) {
 				var save = {}
 				for (c in r) {
-					if (!handlers.hasOwnProperty(c)) continue
-					save[c] = handlers[c]({ r: r[c], save })
+
+					let negated = c.startsWith('~')
+					let config = negated ? c.substring(1) : c
+
+					if (!handlers.hasOwnProperty(config)) continue
+					let returned = handlers[config]({ r: r[config], save })
+					save[config] = negated ? !returned : returned
 				}
 				console.log(save)
 			}
@@ -236,6 +251,14 @@ module.exports = {
 			}
 
 			return m
+		}
+
+		function regex(reg, text) {
+			if (Array.isArray(reg)) {
+				return reg.some(r => !!(new RegExp(r)).exec(text))
+			} else {
+				return !!(new RegExp(reg)).exec(text)
+			}
 		}
 	}
 }
