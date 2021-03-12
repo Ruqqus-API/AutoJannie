@@ -28,7 +28,7 @@ module.exports = {
 			},
 
 			exile: () => {
-				client.APIRequest({ type: "POST", path: `exile/${s.guild.id}/${s.guild.id}?user=${author.username}&thing=${s.full_id}` })
+				client.APIRequest({ type: "POST", path: `exile/${s.guild.id}?user=${author.username}&thing=${s.full_id}` })
 				return true
 			},
 
@@ -62,11 +62,11 @@ module.exports = {
 
 			is_guildmaster: ({ r }) => config.data.guildmasters.some(gm => gm.username === author.username) == Boolean(r),
 
-			comment_rep: ({ r }) => user_rep_calc(r, author.stats.comment_rep),
+			comment_rep: ({ r }) => less_more_compare(r, author.stats.comment_rep),
 
-			post_rep: ({ r }) => user_rep_calc(r, author.stats.post_rep),
+			post_rep: ({ r }) => less_more_compare(r, author.stats.post_rep),
 
-			rep: ({ r }) => user_rep_calc(r, author.stats.post_rep + author.stats.comment_rep),
+			rep: ({ r }) => less_more_compare(r, author.stats.post_rep + author.stats.comment_rep),
 
 			account_age: ({ r }) => {
 				let v = r
@@ -134,19 +134,29 @@ module.exports = {
 				return regex(r, s.content.title)
 			},
 
+			'title-length': ({ r }) => {
+				if (!is_submission(t, submission_type)) return false
+				return less_more_compare((s.content.title).length, r)
+			},
+
 			text: ({ r }) => {
 				if (t == 'comment') return exact(r, s.content.text)
 				return exact(r, s.content.body.text)
 			},
 
 			'text-includes': ({ r }) => {
-				if (t == 'comment') return exact(r, s.content.text)
+				if (t == 'comment') return includes(r, s.content.text)
 				return includes(r, s.content.body.text)
 			},
 
 			'text-regex': ({ r }) => {
-				if (t == 'comment') return exact(r, s.content.text)
-				return regex(r, s.content.title)
+				if (t == 'comment') return regex(r, s.content.text)
+				return regex(r, s.content.body.text)
+			},
+
+			'text-length': ({ r }) => {
+				if (t == 'comment') return less_more_compare(s.content.text, r)
+				return less_more_compare(s.content.body.text, r)
 			},
 
 
@@ -198,10 +208,10 @@ module.exports = {
 			return n.every(v => v == true)
 		}
 
-		function user_rep_calc(rep, compare) {
+		function less_more_compare(v, compare) {
 			let reg = /([<>]) (\d+)/g
 
-			let matches = reg.exec(rep);
+			let matches = reg.exec(v);
 
 			if (matches[1] == '<') {
 				return (compare < parseInt(matches[2]))

@@ -17,6 +17,14 @@ module.exports = {
 			return
 		}
 
+		if (!guildmasters.some(gm => gm.username === client.user.username)) {
+			const res = await client.APIRequest({ type: "POST", path: `accept_invite/${post.guild.id}` })
+				.catch(() => {
+					post.comment(`Sorry, couldn't save config to the database. I'm not the guildmaster of this guild. Invite me as guildmaster and then comment \`${require('../config.json').command_prefix} invited\` under this post. This should activate the Automoderator`)
+					return
+				})
+		}
+
 		let postText = post.content.body.text
 
 		if (postText.startsWith("```") && postText.endsWith("```")) {
@@ -52,7 +60,7 @@ Please consult with \`GuildWizard\` [documentation](https://github.com/Ruqqus-AP
 					conditions[c] = r[c]
 				}
 			}
-			rules_vue.push({ conditions, actions})
+			rules_vue.push({ conditions, actions })
 		})
 
 
