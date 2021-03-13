@@ -18,10 +18,11 @@ module.exports = {
 
 		getConfig(post.guild.name, redisClient, faunaClient)
 			.then(config => {
+				if(!config) return
 				require('../takeAction').execute(passOn, post, config)
 			})
 			.catch(err => {
-				log(err)
+				log(`postHandler: ${err}`)
 			})
 	}
 }

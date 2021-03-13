@@ -25,6 +25,6 @@ module.exports = {
 				comment.reply(`Sorry, couldn't save config to the database. I'm not the guildmaster of this guild. Invite me as guildmaster and then comment \`${require('../config.json').command_prefix} invited\` under this post. This should activate the Automoderator`)
 				return
 			})
-			comment.reply(`Config successfully saved to the database! Automoderator is now active`)
+		comment.reply(`Config successfully saved to the database! Automoderator is now active`)
 	}
 }
