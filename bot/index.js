@@ -6,7 +6,7 @@ const client = new Ruqqus.Client({
 
 const redis = require('redis')
 let redisClient = redis.createClient({
-	host: 'redis'
+	host: process.env.REDIS_URL
 })
 
 var faunadb = require('faunadb')
