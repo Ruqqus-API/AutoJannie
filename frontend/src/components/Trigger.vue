@@ -109,16 +109,8 @@ export default {
 	},
 	methods: {
 		nextStep () {
-			this.$store.commit("nextStep");
+			this.$router.push(`/+${this.$route.params.guild}/rules/create/2`);
 		},
 	},
-	// watch: {
-	// 	'picked': 'pickedTrigger'
-	// },
-	// methods: {
-	// 	pickedTrigger (event) {
-	// 		this.$emit('clicked', 'someValue')
-	// 	}
-	// }
 }
 </script>
