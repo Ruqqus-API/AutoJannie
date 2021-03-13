@@ -1,6 +1,6 @@
 {
   "name": "autojannie",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automoderator for ruqqus guilds",
   "main": "index.js",
   "scripts": {
