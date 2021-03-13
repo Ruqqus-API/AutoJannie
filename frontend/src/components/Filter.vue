@@ -328,7 +328,7 @@ export default {
 	},
 	methods: {
 		previousStep () {
-			this.$store.commit("previousStep");
+			this.$router.push(`/+${this.$route.params.guild}/rules/create/1`);
 		},
 	},
 }
