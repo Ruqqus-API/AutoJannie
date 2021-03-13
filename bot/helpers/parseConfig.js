@@ -1,5 +1,7 @@
 const yaml = require('js-yaml');
 
+const { app_name, maintainer } = require('../config.json')
+
 var faunadb = require('faunadb');
 const { Create, Collection, If, Let, Exists, Update, Match, Index, Var, Select, Get } = faunadb.query
 
@@ -42,7 +44,7 @@ ${error}
 
 \`\`\`  
 
-Please consult with \`GuildWizard\` [documentation](https://github.com/Ruqqus-API/AutoJannie) and make sure to [validate](http://www.yamllint.com) your config file`)
+Please consult with \`${app_name}\` [documentation](https://github.com/Ruqqus-API/AutoJannie) and make sure to [validate](http://www.yamllint.com) your config file`)
 			return
 		}
 
@@ -110,7 +112,7 @@ Please consult with \`GuildWizard\` [documentation](https://github.com/Ruqqus-AP
 				post.comment(`Config successfully saved to the database! Automoderator is now active`)
 			})
 			.catch(err => {
-				post.comment(`Something went wrong, please contact @movie`)
+				post.comment(`Something went wrong, please contact ${maintainer}`)
 				console.log(err)
 			})
 	}
