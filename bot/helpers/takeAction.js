@@ -134,11 +134,6 @@ module.exports = {
 				return regex(r, s.content.title)
 			},
 
-			'title-length': ({ r }) => {
-				if (!is_submission(t, submission_type)) return false
-				return less_more_compare((s.content.title).length, r)
-			},
-
 			text: ({ r }) => {
 				if (t == 'comment') return exact(r, s.content.text)
 				return exact(r, s.content.body.text)
@@ -153,12 +148,6 @@ module.exports = {
 				if (t == 'comment') return regex(r, s.content.text)
 				return regex(r, s.content.body.text)
 			},
-
-			'text-length': ({ r }) => {
-				if (t == 'comment') return less_more_compare(s.content.text, r)
-				return less_more_compare(s.content.body.text, r)
-			},
-
 
 			domain: ({ r }) => {
 				if (t != 'link') return false
