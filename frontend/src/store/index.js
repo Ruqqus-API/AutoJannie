@@ -1,19 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+import triggers from './triggers';
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    }
-  }
-})
+    modules: {
+        triggers,
+    },
+});
 
-Vue.prototype.$store = store
+Vue.prototype.$store = store;
 
-export default store
+export default store;

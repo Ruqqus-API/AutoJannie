@@ -28,7 +28,7 @@
 				<div class="p-5">
 					<label class="label">Trigger</label>
 					<form class="flex flex-col w-100 space-y-2">
-						<label v-for="(trigger, index) in triggers" :key="index" class="flex flex-row content-center flex-grow border border-gray-200 rounded overflow-hidden" :class="trigger.name === picked.name ? 'border-blue-500' : 'hover:border-gray-300'">
+						<label v-for="(trigger, index) in triggers" :key="index" class="flex flex-row content-center flex-grow border border-gray-200 rounded overflow-hidde cursor-pointer" :class="trigger.name === picked.name ? 'border-blue-500' : 'hover:border-gray-300'">
 							<div class="flex items-center justify-center p-4" :class="trigger.name === picked.name ? 'bg-blue-50' : 'hover:bg-gray-50'">
 								<t-radio name="options" :value="trigger" v-model="picked"/>
 							</div>
@@ -45,8 +45,8 @@
 						</label>
 					</form>
 				</div>
-				<div class="hidden mt-5 flex justify-end p-5 border-t">
-					<t-button variant="primary" :disabled="!Object.keys(picked).length">
+				<div class="mt-5 flex justify-end p-5 border-t">
+					<t-button variant="primary" :disabled="Object.keys(picked).length === 3" @click="nextStep()">
 						Next step
 						<i class="fas fa-arrow-right fa-sm pl-2"></i>
 					</t-button>
@@ -58,7 +58,6 @@
 
 <script>
 // import component
-
 export default {
 	name: "CreateRule",
 	props: {
@@ -68,7 +67,7 @@ export default {
 	},
 	data() {
 		return {
-			picked: {},
+			//picked: {},
 			triggers: [
 			{
 				id: 1,
@@ -98,13 +97,20 @@ export default {
 			anyChecked: false,
 		}
 	},
-	// watch: {
-	// 	'picked': 'pickedTrigger'
-	// },
-	// methods: {
-	// 	pickedTrigger (event) {
-	// 		this.$emit('clicked', 'someValue')
-	// 	}
-	// }
+	computed: {
+		picked: {
+			get () {
+				return this.$store.state.triggers.picked;
+			},
+			set (value) {
+				this.$store.commit("setPicked", {trigger: value});
+			},
+		},
+	},
+	methods: {
+		nextStep () {
+			this.$router.push(`/+${this.$route.params.guild}/rules/create/2`);
+		},
+	},
 }
 </script>

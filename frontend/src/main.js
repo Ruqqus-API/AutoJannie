@@ -33,7 +33,7 @@ Vue.use(vuescroll, {
   name: 'vue-scroll' // customize component name, default -> vueScroll
 });
 
-Vue.use(Vuex)
+//Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
