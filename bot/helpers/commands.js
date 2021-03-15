@@ -2,10 +2,10 @@ const fs = require('fs')
 
 function getCommands() {
 	var commands = []
-	const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
 
 	for (const file of commandFiles) {
-		const command = require(`../commands/${file}`);
+		const command = require(__dirname + `/commands/${file}`);
 		commands.push({ command });
 	}
 
@@ -31,5 +31,6 @@ function hasCommand(commands, command) {
 		reject(command)
 	})
 }
+
 
 module.exports = { getCommands, hasCommand }

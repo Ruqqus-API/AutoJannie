@@ -23,8 +23,8 @@ module.exports = {
 			const res = await client.APIRequest({ type: "POST", path: `accept_invite/${post.guild.id}` })
 				.catch(() => {
 					post.comment(`Sorry, couldn't save config to the database. I'm not the guildmaster of this guild. Invite me as guildmaster and then comment \`${require('../config.json').command_prefix} invited\` under this post. This should activate the Automoderator`)
-					return
 				})
+			if(res.length > 1) return
 		}
 
 		let postText = post.content.body.text

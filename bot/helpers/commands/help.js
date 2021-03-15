@@ -6,7 +6,7 @@ module.exports = {
 	description: `Help utility for ${app_name}`,
 	usage: command_prefix + ' help [Command]',
 	aliases: ['h'],
-	execute(passOn, content, args, comment) {
+	execute({ args, comment }) {
 
 		if (args.length == 0) {
 			const commands = getCommands()
