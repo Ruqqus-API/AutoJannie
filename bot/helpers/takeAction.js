@@ -60,7 +60,7 @@ module.exports = {
 				// TODO
 			},
 
-			is_guildmaster: ({ r }) => config.data.guildmasters.some(gm => gm.username === author.username) == Boolean(r),
+			is_guildmaster: ({ r }) => config.data.guildmasters.some(gm => gm.username === author.username) == !!r,
 
 			comment_rep: ({ r }) => less_more_compare(r, author.stats.comment_rep),
 
@@ -158,6 +158,14 @@ module.exports = {
 					return r == d.domain
 				}
 			},
+
+			'image-hosts': ({ r }) => {
+				if (t != 'link') return false
+				const d = psl.parse(s.domain)
+				redisClient.get('image_hosts', (res) => {
+					return res.some(i => i == d.domain) == !!r
+				})
+			}
 		}
 
 

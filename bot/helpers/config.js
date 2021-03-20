@@ -8,7 +8,7 @@ function getConfig(guild_name, redisClient, faunaClient) {
 			let config
 			redisClient.get(`${guild_name}_config`, (err, res) => config = JSON.parse(res))
 			if (config == null) {
-				var config_exists
+				let config_exists
 				redisClient.get(`${guild_name}_config_exists`, (err, res) => config_exists = res)
 				if (Boolean(config_exists)) {
 					config = await faunaClient.query(Get(Match(Index("guild_by_name"), guild_name))).catch(err => reject(err))

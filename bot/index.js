@@ -1,4 +1,5 @@
 require('dotenv').config()
+const needle = require('needle')
 const Ruqqus = require("ruqqus-js")
 const client = new Ruqqus.Client({
 	agent: process.env.AGENT
@@ -19,6 +20,11 @@ client.on("comment", comment => require('./helpers/handlers/commentHandler').exe
 
 client.on("login", () => {
 	console.log(`Logged in as ${client.user.username}!`)
+	needle.get('https://ruqqus.com/info/image_hosts', (err, res) => {
+		if (err) throw err
+		let data = (res.body).split('\n')
+		redisClient.set('image_hosts', data)
+	})
 });
 
 client.login({
