@@ -4,7 +4,7 @@
 			<div class="col-start-2 col-end-12">
 				<div class="space-y-8">
 					<Trigger :active="true"/>
-					<Navigation :currentStep="currentStep" :validated="true"/>
+					<Navigation :currentStep="currentStep" :validated="$store.state.triggers.picked.type !== 'none'"/>
 				</div>
 			</div>
 		</div>
