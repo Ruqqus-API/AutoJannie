@@ -5,10 +5,10 @@ const { Exists, Match, Index, Get } = faunadb.query
 function getConfig(guild_name, redisClient, faunaClient) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			let config
+			var config
 			redisClient.get(`${guild_name}_config`, (err, res) => config = JSON.parse(res))
 			if (config == null) {
-				let config_exists
+				var config_exists
 				redisClient.get(`${guild_name}_config_exists`, (err, res) => config_exists = res)
 				if (Boolean(config_exists)) {
 					config = await faunaClient.query(Get(Match(Index("guild_by_name"), guild_name))).catch(err => reject(err))

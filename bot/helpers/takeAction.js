@@ -162,11 +162,11 @@ module.exports = {
 			'image-hosts': ({ r }) => {
 				if (t != 'link') return false
 				const d = psl.parse(s.content.domain)
-				let data
-				redisClient.get('image_hosts', (res) => {
-					data = JSON.parse(res)
+				return redisClient.get('image_hosts', (err, res) => {
+					var data = JSON.parse(res)
+					return data.some(i => i == d.domain) == !!r
 				})
-				return data.some(i => i == d.domain) == !!r
+				
 			}
 		}
 
