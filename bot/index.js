@@ -21,9 +21,8 @@ client.on("comment", comment => require('./helpers/handlers/commentHandler').exe
 client.on("login", () => {
 	console.log(`Logged in as ${client.user.username}!`)
 	needle.get('https://ruqqus.com/info/image_hosts', (err, res) => {
-		if (err) throw err
 		let data = (res.body).split('\n')
-		redisClient.set('image_hosts', data)
+		redisClient.set("image_hosts", JSON.stringify(data))
 	})
 });
 
@@ -35,4 +34,9 @@ client.login({
 
 process.on('unhandledRejection', error => {
 	console.log('unhandledRejection', error.message);
+});
+
+
+redisClient.on("error", function (err) {
+    console.log("Error " + err);
 });
