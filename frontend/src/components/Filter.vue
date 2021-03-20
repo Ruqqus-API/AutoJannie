@@ -16,7 +16,7 @@
 				<div class="p-5">
 					<FilterListing :fields="availableFields" />
 				</div>
-				<div class="mt-5 flex justify-between p-5 border-t">
+				<!--<div class="mt-5 flex justify-between p-5 border-t">
 					<t-button variant="white" @click="previousStep()">
 						<i class="fas fa-arrow-left fa-sm pr-2"></i>
 						Previous step
@@ -25,7 +25,7 @@
 						Next step
 						<i class="fas fa-arrow-right fa-sm pl-2"></i>
 					</t-button>
-				</div>
+				</div>-->
 			</div>
 		</div>
 </div>
