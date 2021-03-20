@@ -45,12 +45,12 @@
 						</label>
 					</form>
 				</div>
-				<div class="mt-5 flex justify-end p-5 border-t">
+				<!--<div class="mt-5 flex justify-end p-5 border-t">
 					<t-button variant="primary" :disabled="Object.keys(picked).length === 3" @click="nextStep()">
 						Next step
 						<i class="fas fa-arrow-right fa-sm pl-2"></i>
 					</t-button>
-				</div>
+				</div>-->
 			</div>
 		</div>
 </div>
