@@ -28,6 +28,11 @@ export default {
 	data() {
 		return {
 		}
-	}
+	},
+	activated() {
+		if (this.$store.state.triggers.picked.type === 'none') {
+			this.$route.push('./1');
+		}
+	},
 }
 </script>
