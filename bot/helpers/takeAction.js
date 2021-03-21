@@ -151,22 +151,19 @@ module.exports = {
 
 			domain: ({ r }) => {
 				if (t != 'link') return false
-				const d = psl.parse(s.content.domain)
 				if (Array.isArray(r)) {
-					return r.some(e => e == d.domain)
+					return r.some(e => e == s.content.domain)
 				} else {
-					return r == d.domain
+					return r == s.content.domain
 				}
 			},
 
 			'image-hosts': ({ r }) => {
 				if (t != 'link') return false
-				const d = psl.parse(s.content.domain)
 				return redisClient.get('image_hosts', (err, res) => {
 					var data = JSON.parse(res)
-					return data.some(i => i == d.domain) == !!r
+					return data.some(i => i == s.content.domain) == !!r
 				})
-				
 			}
 		}
 
@@ -245,7 +242,7 @@ module.exports = {
 				'{{author}}': s.author.username,
 				'{{body}}': t == 'comment' ? s.content.text : s.content.body.text,
 				'{{permalink}}': s.link,
-				'{{guild}}': `+${s.guild.name}`,
+				'{{guild}}': s.guild.name,
 				'{{kind}}': t == 'comment' ? t : `${t} submission`,
 				'{{title}}': s.content.title,
 				'{{domain}}': s.content.domain,
