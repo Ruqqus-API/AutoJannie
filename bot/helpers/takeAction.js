@@ -151,22 +151,18 @@ module.exports = {
 
 			domain: ({ r }) => {
 				if (t != 'link') return false
-				const parsed = psl.parse(s.content.domain)
-				const compare = parsed.subdomain ? `${parsed.subdomain}.${parsed.domain}` : parsed.domain
 				if (Array.isArray(r)) {
-					return r.some(e => e == compare)
+					return r.some(e => e == s.content.domain)
 				} else {
-					return r == compare
+					return r == s.content.domain
 				}
 			},
 
 			'image-hosts': ({ r }) => {
 				if (t != 'link') return false
-				const parsed = psl.parse(s.content.domain)
-				const compare = parsed.subdomain ? `${parsed.subdomain}.${parsed.domain}` : parsed.domain
 				return redisClient.get('image_hosts', (err, res) => {
 					var data = JSON.parse(res)
-					return data.some(i => i == compare) == !!r
+					return data.some(i => i == s.content.domain) == Boolean(r)
 				})
 			}
 		}
