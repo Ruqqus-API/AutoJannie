@@ -158,27 +158,36 @@ module.exports = {
 				}
 			},
 
-			'image-hosts': ({ r }) => {
-				if (t != 'link') return false
-				return redisClient.get('image_hosts', (err, res) => {
-					var data = JSON.parse(res)
-					return data.some(i => i == s.content.domain) == Boolean(r)
+			'image-hosts': async ({ r }) => {
+				return new Promise((resolve, reject) => {
+					if (t != 'link') resolve(false)
+					return redisClient.get('image_hosts', (err, res) => {
+						var data = JSON.parse(res)
+						resolve(data.some(i => i == s.content.domain) == Boolean(r))
+					})
 				})
 			}
 		}
 
 
-		rules.forEach(r => {
+		rules.forEach(async r => {
 			if (r.type == t) {
 				var save = {}
 				for (c in r) {
-
 					let negated = c.startsWith('~')
 					let config = negated ? c.substring(1) : c
 
 					if (!handlers.hasOwnProperty(config)) continue
 					let returned = handlers[config]({ r: r[config], save })
-					save[config] = negated ? !returned : returned
+
+					if (returned instanceof Promise) {
+						await returned.then(res => {
+							console.log(res)
+							save[config] = negated ? !res : res
+						})
+					} else {
+						save[config] = negated ? !returned : returned
+					}
 				}
 				console.log(save)
 			}
