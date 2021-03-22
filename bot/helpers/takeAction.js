@@ -171,7 +171,8 @@ module.exports = {
 
 
 		rules.forEach(async r => {
-			if (r.type == t) {
+			if (!r.type) return
+			if ((Array.isArray(r.type) && (r.type).includes(t)) || r.type == t) {
 				var save = {}
 				for (c in r) {
 					let negated = c.startsWith('~')
