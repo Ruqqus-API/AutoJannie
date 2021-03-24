@@ -97,11 +97,20 @@ module.exports = {
 			and: ({ save, r }) => ororand(r, handlers, { save }).every(v => v === true),
 
 			author: ({ save, r }) => {
-				let val = []
-				for (c in r) {
-					val.push(author_handler[c]({ save, r: r[c] }))
+				if (Array.isArray(r)) {
+					return r.some(u => u.toLowerCase() == (s.author.username).toLowerCase())
 				}
-				return val.every(v => v == true)
+				else if (typeof s == 'string') {
+					return r.toLowerCase() == (s.author.username).toLowerCase()
+				}
+				else {
+					let val = []
+					for (c in r) {
+						val.push(author_handler[c]({ save, r: r[c] }))
+					}
+					return val.every(v => v == true)
+				}
+
 			},
 
 			action: ({ save, r }) => {
