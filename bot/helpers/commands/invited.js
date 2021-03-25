@@ -9,6 +9,6 @@ module.exports = {
 	async execute({ client, faunaClient, comment, redisClient }) {
 		let post = await client.posts.fetch(comment.post.id)
 
-		require('../parseConfig').execute({client, faunaClient, redisClient}, post)
+		require('../parseConfig').execute({client, faunaClient, redisClient, context: 'invite', comment}, post)
 	}
 }

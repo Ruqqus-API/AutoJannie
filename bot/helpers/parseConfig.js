@@ -8,7 +8,7 @@ const { Create, Collection, If, Let, Exists, Update, Match, Index, Var, Select, 
 module.exports = {
 	async execute(passOn, post) {
 
-		const { client, faunaClient, redisClient } = passOn
+		const { client, faunaClient, redisClient, contex, comment } = passOn
 
 		const guild = await client.guilds.fetch(post.guild.name)
 
@@ -24,7 +24,7 @@ module.exports = {
 				.catch(() => {
 					post.comment(`Sorry, couldn't save config to the database. I'm not the guildmaster of this guild. Invite me as guildmaster and then comment \`${require('../config.json').command_prefix} invited\` under this post. This should activate the Automoderator`)
 				})
-			if(res.length > 1) return
+			if (res.length > 1) return
 		}
 
 		let postText = post.content.body.text
@@ -109,7 +109,14 @@ Please consult with \`${app_name}\` [documentation](https://github.com/Ruqqus-AP
 			)
 		)
 			.then(() => {
-				post.comment(`Config successfully saved to the database! Automoderator is now active`)
+				let message = 'Config successfully saved to the database! Automoderator is now active'
+				if (context && context == 'invite') {
+					comment.reply(message)
+				}
+				else {
+					post.comment(message)
+				}
+
 			})
 			.catch(err => {
 				post.comment(`Something went wrong, please contact ${maintainer}`)

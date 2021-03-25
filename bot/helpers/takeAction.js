@@ -126,11 +126,11 @@ module.exports = {
 			message: async ({ save, r }) => {
 				if (!all_executed(save, not_needed)) return false
 				if (t == 'comment') {
-					let reply = s.reply(replace_placeholders(r))
+					let reply = await s.reply(replace_placeholders(r))
 					actions.herald_comment(reply)
 
 				} else {
-					let reply = s.comment(replace_placeholders(r))
+					let reply = await s.comment(replace_placeholders(r))
 					actions.herald_comment(reply)
 				}
 				return true
