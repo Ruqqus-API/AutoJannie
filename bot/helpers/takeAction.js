@@ -46,6 +46,11 @@ module.exports = {
 				if (t == 'comment') return { error: 'Can\'t toggle NSFW a comment!' }
 				client.APIRequest({ type: "POST", path: `toggle_post_nsfl/${s.id}` })
 				return true
+			},
+
+			herald_comment: (s) => {
+				client.APIRequest({ type: "POST", path: `distinguish_comment/${s.guild.id}/${s.id}` })
+				return true
 			}
 
 		}
@@ -118,12 +123,15 @@ module.exports = {
 				return actions[r]()
 			},
 
-			message: ({ save, r }) => {
+			message: async ({ save, r }) => {
 				if (!all_executed(save, not_needed)) return false
 				if (t == 'comment') {
-					s.reply(replace_placeholders(r))
+					let reply = s.reply(replace_placeholders(r))
+					actions.herald_comment(reply)
+
 				} else {
-					s.comment(replace_placeholders(r))
+					let reply = s.comment(replace_placeholders(r))
+					actions.herald_comment(reply)
 				}
 				return true
 			},
