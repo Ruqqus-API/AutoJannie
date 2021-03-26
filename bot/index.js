@@ -1,5 +1,5 @@
 require('dotenv').config()
-const needle = require('needle')
+
 const Ruqqus = require("ruqqus-js")
 const client = new Ruqqus.Client({
 	agent: process.env.AGENT
@@ -9,6 +9,8 @@ const redis = require('redis')
 let redisClient = redis.createClient({
 	host: process.env.REDIS_URL
 })
+
+const {loadImageHosts, fetchConfigs} = require('./helpers/loadRedis')
 
 var faunadb = require('faunadb')
 var faunaClient = new faunadb.Client({ secret: process.env.FAUNA_SECRET })
@@ -20,10 +22,9 @@ client.on("comment", comment => require('./helpers/handlers/commentHandler').exe
 
 client.on("login", () => {
 	console.log(`Logged in as ${client.user.username}!`)
-	needle.get('https://ruqqus.com/info/image_hosts', (err, res) => {
-		let data = (res.body).split('\n')
-		redisClient.set("image_hosts", JSON.stringify(data))
-	})
+	loadImageHosts()
+	fetchConfigs(redisClient, faunaClient)
+	
 });
 
 client.login({
