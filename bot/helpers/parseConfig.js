@@ -110,7 +110,7 @@ Please consult with \`${app_name}\` [documentation](https://github.com/Ruqqus-AP
 		)
 			.then(() => {
 				let message = 'Config successfully saved to the database! Automoderator is now active'
-				if (context && context == 'invite') {
+				if (typeof context !== 'undefined' && context == 'invite') {
 					comment.reply(message)
 				}
 				else {
