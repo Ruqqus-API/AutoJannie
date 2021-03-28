@@ -22,9 +22,9 @@ client.on("comment", comment => require('./helpers/handlers/commentHandler').exe
 
 client.on("login", () => {
 	console.log(`Logged in as ${client.user.username}!`)
-	loadImageHosts()
+	loadImageHosts(redisClient)
 	fetchConfigs(redisClient, faunaClient)
-	
+
 });
 
 client.login({

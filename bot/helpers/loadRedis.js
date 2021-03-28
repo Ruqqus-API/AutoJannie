@@ -22,7 +22,7 @@ function fetchConfigs(redisClient, faunaClient) {
 }
 
 
-function loadImageHosts() {
+function loadImageHosts(redisClient) {
 	needle.get('https://ruqqus.com/info/image_hosts', (err, res) => {
 		let data = (res.body).split('\n')
 		redisClient.set("image_hosts", JSON.stringify(data))
