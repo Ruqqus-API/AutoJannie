@@ -14,12 +14,12 @@ module.exports = {
 
 		const guildmasters = guild.guildmasters
 
-		if (!guildmasters.some(gm => gm.username === post.author.username)) {
+		if (!guildmasters.some(gm => gm.id === post.author.id)) {
 			post.comment(`You are not the guildmaster of +${guild.name}, you can't set up an Automod for this guild!`)
 			return
 		}
 
-		if (!guildmasters.some(gm => gm.username === client.user.username)) {
+		if (!guildmasters.some(gm => gm.id === client.user.id)) {
 			const res = await client.APIRequest({ type: "POST", path: `accept_invite/${post.guild.id}` })
 				.catch(() => {
 					post.comment(`Sorry, couldn't save config to the database. I'm not the guildmaster of this guild. Invite me as guildmaster and then comment \`${require('../config.json').command_prefix} invited\` under this post. This should activate the Automoderator`)

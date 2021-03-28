@@ -7,7 +7,7 @@ module.exports = {
 		const s = submission
 		if (s.content.title && s.content.title == require('../config.json').config_title) return
 
-		var author = await client.users.fetch(s.author.username)
+		let author = await client.users.fetch(s.author.username)
 
 		console.log(s.content.title)
 
@@ -16,7 +16,12 @@ module.exports = {
 		const submission_type = ['text', 'link']
 		const not_needed = ['message', 'action', 'gm_notification']
 
-		var rules = config.data.rules
+		let rules = config.data.rules
+
+
+		const guildmasters = config.data.guildmasters
+
+		if (!guildmasters.some(g => g.id == client.user.id)) return
 
 
 		const actions = {
@@ -59,7 +64,7 @@ module.exports = {
 
 			or: ({ save, r }) => ororand(r, author_handler, { save }).some(v => v === true),
 
-			and: ({ save, r }) => ororand(r, author_handler, { c, save, r, s }).push(res.every(v => v === true)),
+			and: ({ save, r }) => ororand(r, author_handler, { c, save, r, s }).every(v => v === true),
 
 			is_contributor: () => {
 				// TODO
@@ -173,6 +178,11 @@ module.exports = {
 				} else {
 					return r == s.content.domain
 				}
+			},
+
+			"domain-regex": ({ r }) => {
+				if (t != 'link') return false
+				return regex(r, s.content.url)
 			},
 
 			'image-hosts': async ({ r }) => {
