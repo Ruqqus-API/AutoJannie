@@ -27,13 +27,13 @@ module.exports = {
 		const actions = {
 			kick: () => {
 				if (t == 'comment') return { error: 'Can\'t kick a comment!' }
-				client.APIRequest({ type: "POST", path: `kick/${s.guild.id}/${s.id}` })
+				client.APIRequest({ type: 'POST', path: `kick/${s.guild.id}/${s.id}` })
 				return true
 
 			},
 
 			exile: () => {
-				client.APIRequest({ type: "POST", path: `exile/${s.guild.id}?user=${author.username}&thing=${s.full_id}` })
+				client.APIRequest({ type: 'POST', path: `exile/${s.guild.id}?user=${author.username}&thing=${s.full_id}` })
 				return true
 			},
 
@@ -43,18 +43,18 @@ module.exports = {
 
 			toggle_nsfw: (s) => {
 				if (t == 'comment') return { error: 'Can\'t toggle NSFW on a comment!' }
-				client.APIRequest({ type: "POST", path: `toggle_post_nsfw/${s.id}` })
+				client.APIRequest({ type: 'POST', path: `toggle_post_nsfw/${s.id}` })
 				return true
 			},
 
 			toggle_nsfl: (s) => {
 				if (t == 'comment') return { error: 'Can\'t toggle NSFW a comment!' }
-				client.APIRequest({ type: "POST", path: `toggle_post_nsfl/${s.id}` })
+				client.APIRequest({ type: 'POST', path: `toggle_post_nsfl/${s.id}` })
 				return true
 			},
 
 			herald_comment: (s) => {
-				client.APIRequest({ type: "POST", path: `distinguish_comment/${s.guild.id}/${s.id}` })
+				client.APIRequest({ type: 'POST', path: `distinguish_comment/${s.guild.id}/${s.id}` })
 				return true
 			}
 
@@ -180,7 +180,7 @@ module.exports = {
 				}
 			},
 
-			"domain-regex": ({ r }) => {
+			'domain-regex': ({ r }) => {
 				if (t != 'link') return false
 				return regex(r, s.content.url)
 			},
